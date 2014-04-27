@@ -1,0 +1,35 @@
+[
+	{
+		"id": "directions",
+		"name": "Directions",
+		"subtitle": "Directions subtitle",
+		"description": "Description for Project 1",
+		"slides": [
+			{
+				"image": "1.jpg",
+				"colour": "#FFF",
+				"background": "#222"
+			},
+			{
+				"image": "2.jpg",
+				"colour": "#FFF",
+				"background": "#222"
+			}
+		],
+		"colour": "#FFF",
+		"background": "#151515"
+	},
+	{
+		"id": "journeys",
+		"name": "Journeys",
+		"subtitle": "Journeys subtitle",
+		"description": "Description for Project 2",
+		"slides": [
+			{ "image": "001.jpg" },
+			{ "image": "002.jpg" },
+			{ "image": "003.jpg" }
+		],
+		"colour": "#222",
+		"background": "#FFF"
+	}
+]

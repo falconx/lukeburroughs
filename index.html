@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html data-ng-app="lukeburroughs">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0"> 
+    	<title>AngularJS Demo</title>
+    	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="js/background-slideshow/css/component.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+	</head>
+	<body>
+
+		<header data-ng-controller="navigationController" data-ng-include="'templates/navigation.html'"></header>
+
+		<div data-ng-view="pageView"></div>
+
+		<!-- Scripts -->
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+		<script src="js/jquery.mobile.custom.min.js"></script>
+		<script src="js/modernizr.custom.js"></script>
+		<script src="js/background-slideshow/js/jquery.imagesloaded.min.js"></script>
+		<script src="js/background-slideshow/js/cbpBGSlideshow.js"></script>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+		<script src="config.js"></script>
+
+		<script>
+
+		var app = angular.module('lukeburroughs', ['ngRoute', 'config']);
+
+		/**
+		 * Initialise app
+		 */
+		app.run(function( $rootScope, projects ) {
+			//TODO: This approach will not work if it takes a while to retrieve the data
+			// Get list of projects
+			projects.getProjects()
+				.success(function( data ) {
+					$rootScope.projects = data;
+				});
+		});
+
+		/**
+		 * Routing
+		 */
+		app.config(function( $routeProvider ) {
+			$routeProvider
+				.when('/', {
+					controller: 'homepageController',
+					templateUrl: 'templates/index.html'
+				})
+				.when('/project/:name', {
+					controller: 'projectController',
+					templateUrl: 'templates/project.html'
+				})
+				.otherwise({
+					redirectTo: '/'
+				});
+		});
+
+		/**
+		 * Pads a number with preceeding zeroes e.g. 5 becomes 005
+		 */
+		app.filter('padNumber', function() {
+			return function(input, length) {
+	            input = input.toString();
+		  		return input.length < length ? arguments.callee("0" + input, length) : input;
+	        };
+	    });
+
+	    app.factory('projects', function( $http, $rootScope ) {
+	    	var factory = {};
+
+	    	factory.getProjects = function() {
+	    		return $http.get('projects.json', { cache: true });
+			}
+
+	    	factory.getProject = function( name ) {
+	    		return ( name ) ? _.findWhere( $rootScope.projects, { id: name } ) : null;
+	    	}
+
+	    	return factory;
+	    });
+
+		app.controller('homepageController', function( $scope, $http, HOMEPAGE ) {
+			$scope.slides = HOMEPAGE.slides;
+
+			//TODO: Surely I should be listening for when the DOM has rendered here, somehow?
+			setTimeout(function() {
+				// Initialise slideshow plugin
+				cbpBGSlideshow.init();
+			}, 0);
+		});
+
+		app.controller('projectController', function( $scope, $location, $routeParams, projects ) {
+			$scope.project = projects.getProject( $routeParams.name );
+
+			getSlide = function( slideIndex ) {
+				return $scope.project.slides[slideIndex] || null;
+			}
+
+			/**
+			 * Updates text and background colour according to project or current slide config.
+			 * If a slide value is not provided, the project's default colour value (if one has
+			 * been specified).
+			 *
+			 * @param slide (optional) The slide to get the colour config values from
+			 */
+			updateColours = function( slide ) {
+				$('body').css({
+					'color': (slide && slide.colour) ? slide.colour : $scope.project.colour || 'inherit',
+					'background-color': (slide && slide.colour) ? slide.background : $scope.project.background || 'inherit'
+				});
+			}
+
+			// Redirect back to homepage if the project cannot be found
+			if( !$scope.project ) {
+				$location.url('/');
+			}
+
+			//TODO: Surely I should be listening for when the DOM has rendered here, somehow?
+			setTimeout(function() {
+				// Initialise slideshow plugin
+				cbpBGSlideshow.init();
+
+				$(document).on('slide-init slide-change', function( e, slide ) {
+					if( slide ) {
+						var index = $(slide).data().$scope.$index,
+							slide = getSlide(index);
+
+						// Set colour values according to current slide config
+						updateColours( slide );
+					}
+				});
+			}, 0);
+
+			$scope.toggleDescription = function( evt ) {
+				$(evt.target).siblings('.description').slideToggle();
+			}
+		});
+
+		app.controller('navigationController', function( $scope, $rootScope, $routeParams, projects ) {
+			$scope.viewProjects = function( evt ) {
+				$(evt.target).siblings('ul').slideToggle();
+			}
+
+			$scope.back = function( evt ) {
+				$(evt.target)
+					.closest('.project')
+					.animate({ width: 'hide' }, 1000, function() {
+						// Relist all projects
+						$('.projects > li').show();
+					});
+			}
+
+			$rootScope.$on('$routeChangeSuccess', function( evt, current, previous ) {
+				$scope.project = projects.getProject( $routeParams.name );
+
+				if( $scope.project ) {
+					// Open navigation to current project:
+					$('.projects').show();
+
+					// Start by hiding all projects
+					$('.projects > li').hide();
+
+					// Find and show the current project
+					$('[data-project="' + $scope.project.id + '"]', '.projects').show(function() {
+						// Show project details
+						$('.project', this).show();
+					});
+				} else {
+					// Collapse any open project nav items for non-project pages
+					$('.project', '.projects').hide();
+
+					// ENsure all projects are listed
+					$('.projects > li').show();
+				}
+			});
+		});
+
+		</script>
+	</body>
+</html>

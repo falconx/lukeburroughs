@@ -1,0 +1,14 @@
+<!-- Homepage Template -->
+<div data-ng-controller="homepageController">
+	<ul id="cbp-bislideshow" class="cbp-bislideshow">
+		<li data-ng-repeat="slide in slides">
+			<div class="slide-overlay {{ slide.class }}">
+				<img data-ng-src="{{ slide.src }}" alt="{{ slide.alt }}" />
+			</div>
+		</li>
+	</ul>
+	<div id="cbp-bicontrols" class="cbp-bicontrols">
+		<span class="cbp-biprev"></span>
+		<span class="cbp-binext"></span>
+	</div>
+</div>

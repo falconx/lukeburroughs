@@ -1,0 +1,19 @@
+<div class="page page-project" data-ng-controller="projectController">
+	<ul id="cbp-bislideshow" class="cbp-bislideshow">
+		<li class="slide" data-ng-repeat="slide in project.slides">
+			<img data-ng-src="projects/{{ project.id }}/{{ slide.image }}" alt="" />
+		</li>
+	</ul>
+	<div id="cbp-bicontrols" class="cbp-bicontrols">
+		<span class="cbp-biprev"></span>
+		<span class="cbp-binext"></span>
+	</div>
+
+	<div class="content">
+		<a href="javascript:void(0);" class="description-toggle expand expanded" data-ng-click="toggleDescription($event)">Hide Info</a>
+		<div class="description">
+			<a href="javascript:void(0);" class="close"></a>
+			<div>{{ project.description }}</div>
+		</div>
+	</div>
+</div>
