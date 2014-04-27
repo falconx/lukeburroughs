@@ -9,11 +9,11 @@
 		<link rel="stylesheet" type="text/css" href="js/background-slideshow/css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 	</head>
-	<body>
+	<body data-ng-controller="rootController">
 
 		<header data-ng-controller="navigationController" data-ng-include="'templates/navigation.html'"></header>
 
-		<div data-ng-view="pageView"></div>
+		<div id="main" data-ng-view="pageView"></div>
 
 		<!-- Scripts -->
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -85,6 +85,18 @@
 	    	}
 
 	    	return factory;
+	    });
+
+	    app.controller('rootController', function( $scope, $http ) {
+	    	$scope.overlay = function( page ) {
+	    		$http.get('templates/' + page + '.html')
+	    			.success(function( data ) {
+	    				//TODO: Load as ng-include?
+	    				$('#main').append( data );
+	    			});
+
+	    		//TODO: else redirect back to homepage
+	    	}
 	    });
 
 		app.controller('homepageController', function( $scope, $http, HOMEPAGE ) {
@@ -177,10 +189,14 @@
 					// Collapse any open project nav items for non-project pages
 					$('.project', '.projects').hide();
 
-					// ENsure all projects are listed
+					// Ensure all projects are listed
 					$('.projects > li').show();
 				}
 			});
+		});
+
+		app.controller('overlayController', function( $scope ) {
+			//
 		});
 
 		</script>

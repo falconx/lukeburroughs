@@ -13,4 +13,7 @@ angular.module('config', [])
 			}
 		]
 	})
-	.constant('PROJECT_IMAGE_URL', '/projects');
+	.constant('PROJECT_IMAGE_URL', '/projects')
+	.constant('SLIDER', {
+		"animation_speed": "5000"
+	});
