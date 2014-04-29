@@ -1,0 +1,74 @@
+<div class="page page-build overlay" data-ng-controller="overlayController">
+	<div class="content">
+    <div class="overlay-links">
+  		<a href="javascript:void(0);" class="close" data-ng-click="close()"></a>
+      <a class="active">Build</a>
+      <a id="manifesto" href="javascript:void(0);">Manifesto</a>
+    </div>
+		<div>
+			<div class="row">
+				<div class="column">
+					<h1>The Build Process</h1>
+					<h2>Brief</h2>
+					<p>
+						To create a highly vsual site on all devices - rethinking the stacked nature of mobile content - to find a means of seamlessly integrating web, table and mobile experiences.
+					</p>
+					<h2>Approach</h2>
+					<p>
+						With such a simple set of requirements, we placed importance on having the site as lightweight and easily editable as possible.  Static site generators, a way of serving files without the need for a CMS or database, seemed to compliment the brief as a secure and performant solution.
+					</p>
+				</div>
+				<div class="column">
+					<h2>Technology</h2>
+					<p>
+						The intrinsically portable nature of static sites meant we also had a wide choice over where we wanted to host the site, allowing us to take advantage of the free hosting service Heroku.
+					</p>
+
+					<p>
+						<img src="../images/logos.png" alt="Build logos" />
+					</p>
+
+					<p>
+						We decided to use the static site generator Jekyll partly because it was the first we came across, but mostly due to its level of popularity.
+					</p>
+					<blockquote>
+						We need to make mobile a core part of the end product - not an add-on feature.
+					</blockquote>
+					<p>
+						Despite being written in Ruby, understanding the language is not required in order to develop a simple site. That said, sinking our teeth into the Jekyll plugin was necessary in order to add a Liquid template plugin (http://docs.shopify.com/themes/liquid-basics) for padding the project numbers, e.g. so 5 becomes ‘005’.
+					</p>
+				</div>
+				<div class="column">
+					<h2>Deployment</h2>
+					<p>
+						Of course our next question was, how can we make the process of adding new content, deploying a new Jekyll build and serving the updated content as seamless and streamlined as possible?
+					</p>
+					<p>
+						Our answer to this was to have GitHub act as our CMS whilst a service called Travis listens for commits and automatically runs a deploy script to copy and serve the files on the third party hosting service; Heroku.
+					</p>
+					<p>
+						Using GitHub as a means of managing the content not only allows us to maintain revisions of the code which can be reverted back to, but also - acts as a simple environment with the only dependency being that the client has a web browser.
+						Whilst the site could just have been easily hosted on GitHub Pages, we wanted the flexibility of including additional Ruby middleware features such as script minification and asset compression.
+					</p>
+					<p>
+						Throughout the build, much consideration was taken to ensure that the mobile experience felt a core part of the end-product and not an add-on. This meant taking time to experiment with web fonts, scalable backgrounds and vectored glyphs as icons to ensure a crisper look on high resolution screens and an equal experience across all platforms.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column">
+					&nbsp;
+				</div>
+				<div class="column">
+					Design &amp; Direction:<br />
+					Luke Burroughs&trade;
+				</div>
+				<div class="column">
+					Build &amp; Development:<br />
+					<a href="http://mattlayton.co.uk" title="Matt Layton portfolio">www.mattlayton.co.uk</a>
+				</div>
+			</div>
+      <div class="row">&nbsp;</div>
+		</div>
+	</div>
+</div>

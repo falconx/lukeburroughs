@@ -9,17 +9,17 @@
 		<link rel="stylesheet" type="text/css" href="js/background-slideshow/css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 	</head>
-	<body data-ng-controller="rootController">
+	<body>
 
 		<header data-ng-controller="navigationController" data-ng-include="'templates/navigation.html'"></header>
 
-		<div id="main" data-ng-view="pageView"></div>
+		<div id="main">
+			<div data-ng-view="pageView"></div>
+			<div data-ng-if="overlay" data-ng-include="overlay"></div>
+		</div>
 
 		<!-- Scripts -->
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
-		<script src="js/jquery.mobile.custom.min.js"></script>
 		<script src="js/modernizr.custom.js"></script>
 		<script src="js/background-slideshow/js/jquery.imagesloaded.min.js"></script>
 		<script src="js/background-slideshow/js/cbpBGSlideshow.js"></script>
@@ -33,6 +33,13 @@
 
 		var app = angular.module('lukeburroughs', ['ngRoute', 'config']);
 
+		// $includeContentLoaded
+
+		// broadcastEvent: function( event, args ) {
+		// 	$rootScope.$broadcast( event, args );
+		// });
+
+
 		/**
 		 * Initialise app
 		 */
@@ -43,6 +50,15 @@
 				.success(function( data ) {
 					$rootScope.projects = data;
 				});
+
+			//TODO: Failing on second attempt
+			$rootScope.showOverlay = function( name ) {
+				// Close all open overlay displays
+				$('.overlay').remove();
+
+				// Show selected overlay
+				$rootScope.overlay = 'templates/' + name + '.html';
+			}
 		});
 
 		/**
@@ -84,19 +100,11 @@
 	    		return ( name ) ? _.findWhere( $rootScope.projects, { id: name } ) : null;
 	    	}
 
+	    	factory.getSlide = function( project, slideIndex ) {
+				return project.slides[slideIndex] || null;
+			}
+
 	    	return factory;
-	    });
-
-	    app.controller('rootController', function( $scope, $http ) {
-	    	$scope.overlay = function( page ) {
-	    		$http.get('templates/' + page + '.html')
-	    			.success(function( data ) {
-	    				//TODO: Load as ng-include?
-	    				$('#main').append( data );
-	    			});
-
-	    		//TODO: else redirect back to homepage
-	    	}
 	    });
 
 		app.controller('homepageController', function( $scope, $http, HOMEPAGE ) {
@@ -111,10 +119,6 @@
 
 		app.controller('projectController', function( $scope, $location, $routeParams, projects ) {
 			$scope.project = projects.getProject( $routeParams.name );
-
-			getSlide = function( slideIndex ) {
-				return $scope.project.slides[slideIndex] || null;
-			}
 
 			/**
 			 * Updates text and background colour according to project or current slide config.
@@ -143,7 +147,7 @@
 				$(document).on('slide-init slide-change', function( e, slide ) {
 					if( slide ) {
 						var index = $(slide).data().$scope.$index,
-							slide = getSlide(index);
+							slide = projects.getSlide($scope.project, index);
 
 						// Set colour values according to current slide config
 						updateColours( slide );
@@ -196,7 +200,9 @@
 		});
 
 		app.controller('overlayController', function( $scope ) {
-			//
+			$scope.close = function() {
+				$('.overlay').remove();
+			}
 		});
 
 		</script>
