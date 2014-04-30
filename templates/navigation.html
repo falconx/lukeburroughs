@@ -1,16 +1,16 @@
 <nav id="primary">
 	<ul>
-		<li class="persist"><a href="#" title="Go to home page">Luke Burroughs&trade;</a></li>
-		<li class="persist" data-ng-show="projects.length">
-			<a href="javascript:void(0);" title="Show projects" class="expand">Projects</a>
-			<ul class="projects">
+		<li><a href="#" title="Go to home page">Luke Burroughs&trade;</a></li>
+		<li data-ng-show="projects.length">
+			<a href="javascript:void(0);" title="Show projects" class="expand" data-ng-click="showProjectList = !showProjectList">Projects</a>
+			<ul class="projects" data-ng-show="showProjectList">
 				<li data-ng-repeat="project in projects" data-project="{{ project.id }}">
-					<a data-ng-href="#/project/{{ project.id }}" title="View {{ project.name }}">
+					<a data-ng-href="#/project/{{ project.id }}" title="View {{ project.name }}" data-ng-show="$parent.listAllProjects || !$parent.project || $parent.project === project" data-ng-click="$parent.listAllProjects = false">
 						<sup>{{ $index + 1 | padNumber: 3 }}</sup>{{ project.name }}
 					</a>
-					<div class="project">
+					<div class="project" data-ng-show="!$parent.listAllProjects && $parent.project === project">
 						<sup>{{ $index + 1 | padNumber: 3 }}</sup>{{ project.name }}
-						<a href="javascript:void(0);" class="arrow-left back" title="Back to projects">L</a>
+						<a href="javascript:void(0);" class="arrow-left" title="Back to projects" data-ng-click="$parent.listAllProjects = true">L</a>
 						<div>{{ project.subtitle }}</div>
 					</div>
 				</li>

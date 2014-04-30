@@ -43,7 +43,7 @@
 					$rootScope.projects = data;
 				});
 
-			//TODO: Failing on second attempt
+			//TODO: Make overlay as directive
 			$rootScope.showOverlay = function( name ) {
 				// Close all open overlay displays
 				$('.overlay').remove();
@@ -60,7 +60,7 @@
 			$routeProvider
 				.when('/', {
 					controller: 'homepageController',
-					templateUrl: 'templates/index.html'
+					template: '<div slideshow slides="slides"></div>'
 				})
 				.when('/project/:name', {
 					controller: 'projectController',
@@ -101,16 +101,32 @@
 
 		app.controller('homepageController', function( $scope, $http, HOMEPAGE ) {
 			$scope.slides = HOMEPAGE.slides;
+		});
 
-			//TODO: Surely I should be listening for when the DOM has rendered here, somehow?
-			setTimeout(function() {
-				// Initialise slideshow plugin
-				cbpBGSlideshow.init();
-			}, 0);
+		app.directive('slideshow', function() {
+			return {
+				restrict: 'A',
+				templateUrl: 'templates/directives/slideshow.html',
+				scope: {
+					slides: '='
+				},
+				link: function( scope, element, attrs ) {
+					setTimeout(function() {
+						cbpBGSlideshow.init();
+					}, 0);
+
+					//TODO: Handle slide-init, slide-change
+				}
+			}
 		});
 
 		app.controller('projectController', function( $scope, $location, $routeParams, projects ) {
 			$scope.project = projects.getProject( $routeParams.name );
+
+			// Update project slide paths
+			angular.forEach($scope.project.slides, function( slide ) {
+				slide.src = 'projects/' + $scope.project.id + '/' + slide.image;
+			});
 
 			/**
 			 * Updates text and background colour according to project or current slide config.
@@ -131,31 +147,37 @@
 				$location.url('/');
 			}
 
-			//TODO: Surely I should be listening for when the DOM has rendered here, somehow?
-			setTimeout(function() {
-				// Initialise slideshow plugin
-				cbpBGSlideshow.init();
-
-				$(document).on('slide-init slide-change', function( e, slide ) {
-					if( slide ) {
-						var index = $(slide).data().$scope.$index,
-							slide = projects.getSlide($scope.project, index);
-
-						// Set colour values according to current slide config
-						$scope.updateColours( slide );
-					}
-				});
-			}, 0);
-
 			//TODO: Replicate with directive? or ng-show toggle
 			$scope.toggleDescription = function( evt ) {
 				$(evt.target).siblings('.description').slideToggle();
 			}
+
+			//TODO: Move this logic to the slideshow directive
+			$(document).on('slide-init slide-change', function( e, slide ) {
+				if( slide ) {
+					var index = $(slide).data().$scope.$index,
+						slide = projects.getSlide($scope.project, index);
+
+					// Set colour values according to current slide config
+					$scope.updateColours( slide );
+				}
+			});
 		});
 
 		app.controller('navController', function( $scope, $rootScope, $routeParams, projects ) {
+			// Listen for route changes as the controller is outside of ng-view
 			$rootScope.$on('$routeChangeSuccess', function( evt, current, previous ) {
-				// 
+				// Set the current project based on route argument
+				$scope.project = projects.getProject( $routeParams.name );
+
+				// Expand projects list for project pages
+				// By default it will be close on non-project pages but maintain it's open state between routes
+				if( !!$scope.project ) {
+					$scope.showProjectList = true;
+				}
+
+				// Don't show all projects by default for project pages, otherwise show
+				$scope.listAllProjects = !$scope.project;
 			});
 		});
 
