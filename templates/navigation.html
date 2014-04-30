@@ -1,16 +1,16 @@
 <nav id="primary">
 	<ul>
-		<li class="persist"><a href="/" title="Go to home page">Luke Burroughs&trade;</a></li>
+		<li class="persist"><a href="#" title="Go to home page">Luke Burroughs&trade;</a></li>
 		<li class="persist" data-ng-show="projects.length">
-			<a href="javascript:void(0);" title="Show projects" class="expand" data-ng-click="viewProjects($event)">Projects</a>
+			<a href="javascript:void(0);" title="Show projects" class="expand">Projects</a>
 			<ul class="projects">
 				<li data-ng-repeat="project in projects" data-project="{{ project.id }}">
-					<a data-ng-href="#/project/{{ project.id }}" title="View {{ project.name }}" class="expand isolate">
+					<a data-ng-href="#/project/{{ project.id }}" title="View {{ project.name }}">
 						<sup>{{ $index + 1 | padNumber: 3 }}</sup>{{ project.name }}
 					</a>
 					<div class="project">
 						<sup>{{ $index + 1 | padNumber: 3 }}</sup>{{ project.name }}
-						<a href="javascript:void(0);" class="arrow-left back" title="Back to projects" data-ng-click="back($event)">L</a>
+						<a href="javascript:void(0);" class="arrow-left back" title="Back to projects">L</a>
 						<div>{{ project.subtitle }}</div>
 					</div>
 				</li>
@@ -20,4 +20,3 @@
 		<li><a href="javascript:void(0);" title="Get in touch" data-ng-click="showOverlay('contact')">Get In Touch</a></li>
 	</ul>
 </nav>
-<!--<div class="loading">Initialising</div>-->

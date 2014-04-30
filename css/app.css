@@ -424,11 +424,6 @@ span.cbp-binext:before {
 	z-index: 10;
 }
 
-#primary .expand + ul,
-#primary .project {
-	display: none;
-}
-
 #primary > ul > li > ul {
 	font-family: 'consolasregular', sans-serif;
 	font-size: 0.4em;

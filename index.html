@@ -6,23 +6,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0"> 
     	<title>AngularJS Demo</title>
     	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-		<link rel="stylesheet" type="text/css" href="js/background-slideshow/css/component.css" />
+		<link rel="stylesheet" type="text/css" href="js/lib/background-slideshow/css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 	</head>
 	<body>
 
-		<header data-ng-controller="navigationController" data-ng-include="'templates/navigation.html'"></header>
-
 		<div id="main">
-			<div data-ng-view="pageView"></div>
-			<div data-ng-if="overlay" data-ng-include="overlay"></div>
+			<header data-ng-include="'templates/navigation.html'" data-ng-controller="navController"></header>
+			<div data-ng-view></div>
+			<div data-ng-if="overlay" data-ng-include="overlay" data-ng-controller="overlayController"></div>
 		</div>
 
 		<!-- Scripts -->
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-		<script src="js/modernizr.custom.js"></script>
-		<script src="js/background-slideshow/js/jquery.imagesloaded.min.js"></script>
-		<script src="js/background-slideshow/js/cbpBGSlideshow.js"></script>
+		<script src="js/lib/modernizr.custom.js"></script>
+		<script src="js/lib/background-slideshow/js/jquery.imagesloaded.min.js"></script>
+		<script src="js/lib/background-slideshow/js/cbpBGSlideshow.js"></script>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
@@ -32,13 +31,6 @@
 		<script>
 
 		var app = angular.module('lukeburroughs', ['ngRoute', 'config']);
-
-		// $includeContentLoaded
-
-		// broadcastEvent: function( event, args ) {
-		// 	$rootScope.$broadcast( event, args );
-		// });
-
 
 		/**
 		 * Initialise app
@@ -57,7 +49,7 @@
 				$('.overlay').remove();
 
 				// Show selected overlay
-				$rootScope.overlay = 'templates/' + name + '.html';
+				$rootScope.overlay = 'templates/overlays/' + name + '.html';
 			}
 		});
 
@@ -83,9 +75,9 @@
 		 * Pads a number with preceeding zeroes e.g. 5 becomes 005
 		 */
 		app.filter('padNumber', function() {
-			return function(input, length) {
+			return function pad(input, length) {
 	            input = input.toString();
-		  		return input.length < length ? arguments.callee("0" + input, length) : input;
+		  		return input.length < length ? pad("0" + input, length) : input;
 	        };
 	    });
 
@@ -127,7 +119,7 @@
 			 *
 			 * @param slide (optional) The slide to get the colour config values from
 			 */
-			updateColours = function( slide ) {
+			$scope.updateColours = function( slide ) {
 				$('body').css({
 					'color': (slide && slide.colour) ? slide.colour : $scope.project.colour || 'inherit',
 					'background-color': (slide && slide.colour) ? slide.background : $scope.project.background || 'inherit'
@@ -150,57 +142,28 @@
 							slide = projects.getSlide($scope.project, index);
 
 						// Set colour values according to current slide config
-						updateColours( slide );
+						$scope.updateColours( slide );
 					}
 				});
 			}, 0);
 
+			//TODO: Replicate with directive? or ng-show toggle
 			$scope.toggleDescription = function( evt ) {
 				$(evt.target).siblings('.description').slideToggle();
 			}
 		});
 
-		app.controller('navigationController', function( $scope, $rootScope, $routeParams, projects ) {
-			$scope.viewProjects = function( evt ) {
-				$(evt.target).siblings('ul').slideToggle();
-			}
-
-			$scope.back = function( evt ) {
-				$(evt.target)
-					.closest('.project')
-					.animate({ width: 'hide' }, 1000, function() {
-						// Relist all projects
-						$('.projects > li').show();
-					});
-			}
-
+		app.controller('navController', function( $scope, $rootScope, $routeParams, projects ) {
 			$rootScope.$on('$routeChangeSuccess', function( evt, current, previous ) {
-				$scope.project = projects.getProject( $routeParams.name );
-
-				if( $scope.project ) {
-					// Open navigation to current project:
-					$('.projects').show();
-
-					// Start by hiding all projects
-					$('.projects > li').hide();
-
-					// Find and show the current project
-					$('[data-project="' + $scope.project.id + '"]', '.projects').show(function() {
-						// Show project details
-						$('.project', this).show();
-					});
-				} else {
-					// Collapse any open project nav items for non-project pages
-					$('.project', '.projects').hide();
-
-					// Ensure all projects are listed
-					$('.projects > li').show();
-				}
+				// 
 			});
 		});
 
-		app.controller('overlayController', function( $scope ) {
+		app.controller('overlayController', function( $scope, $rootScope ) {
+			//TODO: $scope.showControls
+
 			$scope.close = function() {
+				$rootScope.overlay = null;
 				$('.overlay').remove();
 			}
 		});
