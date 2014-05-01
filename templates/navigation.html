@@ -1,4 +1,4 @@
-<nav id="primary">
+<nav id="primary" data-ng-controller="navController">
 	<ul>
 		<li><a href="#" title="Go to home page">Luke Burroughs&trade;</a></li>
 		<li data-ng-show="projects.length">
@@ -16,7 +16,7 @@
 				</li>
 			</ul>
 		</li>
-		<li><a href="javascript:void(0);" title="Manifesto" data-ng-click="showOverlay('manifesto')">Manifesto</a></li>
-		<li><a href="javascript:void(0);" title="Get in touch" data-ng-click="showOverlay('contact')">Get In Touch</a></li>
+		<li><a href="javascript:void(0);" title="Manifesto" data-ng-click="show('manifesto')">Manifesto</a></li>
+		<li><a href="javascript:void(0);" title="Get in touch" data-ng-click="show('contact')">Get In Touch</a></li>
 	</ul>
 </nav>

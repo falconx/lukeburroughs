@@ -12,9 +12,8 @@
 	<body>
 
 		<div id="main">
-			<header data-ng-include="'templates/navigation.html'" data-ng-controller="navController"></header>
+			<header data-ng-include="'templates/navigation.html'"></header>
 			<div data-ng-view></div>
-			<div data-ng-if="overlay" data-ng-include="overlay" data-ng-controller="overlayController"></div>
 		</div>
 
 		<!-- Scripts -->
@@ -43,13 +42,8 @@
 					$rootScope.projects = data;
 				});
 
-			//TODO: Make overlay as directive
-			$rootScope.showOverlay = function( name ) {
-				// Close all open overlay displays
-				$('.overlay').remove();
-
-				// Show selected overlay
-				$rootScope.overlay = 'templates/overlays/' + name + '.html';
+			$rootScope.show = function( overlay_name ) {
+				$rootScope.overlayPage = overlay_name;
 			}
 		});
 
@@ -60,7 +54,7 @@
 			$routeProvider
 				.when('/', {
 					controller: 'homepageController',
-					template: '<div slideshow slides="slides"></div>'
+					templateUrl: 'templates/index.html'
 				})
 				.when('/project/:name', {
 					controller: 'projectController',
@@ -99,13 +93,9 @@
 	    	return factory;
 	    });
 
-		app.controller('homepageController', function( $scope, $http, HOMEPAGE ) {
-			$scope.slides = HOMEPAGE.slides;
-		});
-
-		app.directive('slideshow', function() {
+		app.directive('lbSlideshow', function() {
 			return {
-				restrict: 'A',
+				restrict: 'E',
 				templateUrl: 'templates/directives/slideshow.html',
 				scope: {
 					slides: '='
@@ -118,6 +108,24 @@
 					//TODO: Handle slide-init, slide-change
 				}
 			}
+		});
+
+		app.directive('lbOverlay', function() {
+			return {
+				restrict: 'E',
+				transclude: true,
+				templateUrl: 'templates/directives/overlay.html',
+				scope: true,
+				link: function( scope, element, attrs ) {
+					scope.close = function() {
+						//TODO: Hide overlay
+					}
+				}
+			}
+		});
+
+		app.controller('homepageController', function( $scope, $http, HOMEPAGE ) {
+			$scope.slides = HOMEPAGE.slides;
 		});
 
 		app.controller('projectController', function( $scope, $location, $routeParams, projects ) {
@@ -179,15 +187,6 @@
 				// Don't show all projects by default for project pages, otherwise show
 				$scope.listAllProjects = !$scope.project;
 			});
-		});
-
-		app.controller('overlayController', function( $scope, $rootScope ) {
-			//TODO: $scope.showControls
-
-			$scope.close = function() {
-				$rootScope.overlay = null;
-				$('.overlay').remove();
-			}
 		});
 
 		</script>
