@@ -22,30 +22,38 @@
 		<script src="js/lib/background-slideshow/js/jquery.imagesloaded.min.js"></script>
 		<script src="js/lib/background-slideshow/js/cbpBGSlideshow.js"></script>
 
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 		<script src="config.js"></script>
 
 		<script>
 
-		var app = angular.module('lukeburroughs', ['ngRoute', 'config']);
+		var app = angular.module('lukeburroughs', ['ngRoute', 'ngResource', 'config']);
 
 		/**
 		 * Initialise app
 		 */
-		app.run(function( $rootScope, projects ) {
-			//TODO: This approach will not work if it takes a while to retrieve the data
-			// Get list of projects
-			projects.getProjects()
-				.success(function( data ) {
-					$rootScope.projects = data;
-				});
+		 app.run(function( $rootScope, Project ) {
+		 	$rootScope.projects = Project.query();
+		 });
 
-			$rootScope.show = function( overlay_name ) {
-				$rootScope.overlayPage = overlay_name;
-			}
-		});
+		// app.run(function( $rootScope, projects ) {
+			// Get list of projects
+			// projects.getProjects()
+			// 	.success(function( data ) {
+			// 		setTimeout(function() { //TEMP: Simulate server load
+			// 			$rootScope.$apply(function() {
+			// 				$rootScope.projects = data;
+			// 			});
+			// 		}, 2000);
+			// 	});
+
+			// $rootScope.show = function( overlay_name ) {
+			// 	$rootScope.overlayPage = overlay_name;
+			// }
+		// });
 
 		/**
 		 * Routing
@@ -70,17 +78,34 @@
 		 */
 		app.filter('padNumber', function() {
 			return function pad(input, length) {
-	            input = input.toString();
-		  		return input.length < length ? pad("0" + input, length) : input;
-	        };
-	    });
+				input = input.toString();
+				return input.length < length ? pad("0" + input, length) : input;
+		    };
+		});
 
-	    app.factory('projects', function( $http, $rootScope ) {
-	    	var factory = {};
+		app.factory('Project', function( $resource ) {
+			return $resource('projects.json', {}, {
+				'query': {
+					method: 'GET',
+					isArray: true
+				}
+			});
+		});
 
-	    	factory.getProjects = function() {
-	    		return $http.get('projects.json', { cache: true });
-			}
+		/*
+		app.factory('projects', function( $http, $rootScope ) {
+			var factory = {
+				projects: []
+			};
+
+			$http.get('projects.json', { cache: true })
+				.success(function( data ) {
+					// This doesn't work because we're replacing the array and not updating the binding. A loop, .push would work but $.resource will do this for us
+					// factory.projects = data;
+
+
+				// $.resource
+			});
 
 	    	factory.getProject = function( name ) {
 	    		return ( name ) ? _.findWhere( $rootScope.projects, { id: name } ) : null;
@@ -92,8 +117,9 @@
 
 	    	return factory;
 	    });
+		*/
 
-		app.directive('lbSlideshow', function() {
+		app.directive('slideshow', function() {
 			return {
 				restrict: 'E',
 				templateUrl: 'templates/directives/slideshow.html',
@@ -105,12 +131,21 @@
 						cbpBGSlideshow.init();
 					}, 0);
 
-					//TODO: Handle slide-init, slide-change
+					//TODO: Make this less jQuery
+					// $(document).on('slide-init slide-change', function( e, slide ) {
+					// 	if( slide ) {
+					// 		var index = $(slide).data().$scope.$index,
+					// 			slide = projects.getSlide($scope.project, index);
+
+					// 		// Set colour values according to current slide config
+					// 		$scope.updateColours( slide );
+					// 	}
+					// });
 				}
 			}
 		});
 
-		app.directive('lbOverlay', function() {
+		app.directive('overlay', function() {
 			return {
 				restrict: 'E',
 				transclude: true,
@@ -128,8 +163,8 @@
 			$scope.slides = HOMEPAGE.slides;
 		});
 
-		app.controller('projectController', function( $scope, $location, $routeParams, projects ) {
-			$scope.project = projects.getProject( $routeParams.name );
+		app.controller('projectController', function( $scope, $location, $routeParams, Project ) {
+			$scope.project = Project.get({ id: $routeParams.name });
 
 			// Update project slide paths
 			angular.forEach($scope.project.slides, function( slide ) {
@@ -159,24 +194,14 @@
 			$scope.toggleDescription = function( evt ) {
 				$(evt.target).siblings('.description').slideToggle();
 			}
-
-			//TODO: Move this logic to the slideshow directive
-			$(document).on('slide-init slide-change', function( e, slide ) {
-				if( slide ) {
-					var index = $(slide).data().$scope.$index,
-						slide = projects.getSlide($scope.project, index);
-
-					// Set colour values according to current slide config
-					$scope.updateColours( slide );
-				}
-			});
 		});
 
-		app.controller('navController', function( $scope, $rootScope, $routeParams, projects ) {
+		app.controller('navController', function( $scope, $rootScope, $routeParams, Project ) {
 			// Listen for route changes as the controller is outside of ng-view
 			$rootScope.$on('$routeChangeSuccess', function( evt, current, previous ) {
 				// Set the current project based on route argument
-				$scope.project = projects.getProject( $routeParams.name );
+				// $scope.project = projects.getProject( $routeParams.name );
+				$scope.project = Project.get({ id: $routeParams.name });
 
 				// Expand projects list for project pages
 				// By default it will be close on non-project pages but maintain it's open state between routes
