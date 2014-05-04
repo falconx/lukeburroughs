@@ -11,7 +11,7 @@
 	</head>
 	<body>
 
-		<div id="main">
+		<div id="main" data-ng-controller="mainController">
 			<header data-ng-include="'templates/navigation.html'"></header>
 			<div data-ng-view></div>
 		</div>
@@ -25,31 +25,13 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 		<script src="config.js"></script>
 
 		<script>
 
 		var app = angular.module('lukeburroughs', ['ngRoute', 'ngResource', 'config']);
 
-		/**
-		 * Initialise app
-		 */
-		 app.run(function( $rootScope, Project ) {
-		 	$rootScope.projects = Project.query();
-		 });
-
 		// app.run(function( $rootScope, projects ) {
-			// Get list of projects
-			// projects.getProjects()
-			// 	.success(function( data ) {
-			// 		setTimeout(function() { //TEMP: Simulate server load
-			// 			$rootScope.$apply(function() {
-			// 				$rootScope.projects = data;
-			// 			});
-			// 		}, 2000);
-			// 	});
-
 			// $rootScope.show = function( overlay_name ) {
 			// 	$rootScope.overlayPage = overlay_name;
 			// }
@@ -61,7 +43,6 @@
 		app.config(function( $routeProvider ) {
 			$routeProvider
 				.when('/', {
-					controller: 'homepageController',
 					templateUrl: 'templates/index.html'
 				})
 				.when('/project/:name', {
@@ -84,40 +65,15 @@
 		});
 
 		app.factory('Project', function( $resource ) {
-			return $resource('projects.json', {}, {
-				'query': {
-					method: 'GET',
-					isArray: true
-				}
-			});
-		});
+			var $r = $resource('projects.json', {}, { 'get': { method: 'GET', isArray: true } });
 
-		/*
-		app.factory('projects', function( $http, $rootScope ) {
-			var factory = {
-				projects: []
-			};
-
-			$http.get('projects.json', { cache: true })
-				.success(function( data ) {
-					// This doesn't work because we're replacing the array and not updating the binding. A loop, .push would work but $.resource will do this for us
-					// factory.projects = data;
-
-
-				// $.resource
-			});
-
-	    	factory.getProject = function( name ) {
-	    		return ( name ) ? _.findWhere( $rootScope.projects, { id: name } ) : null;
-	    	}
-
-	    	factory.getSlide = function( project, slideIndex ) {
-				return project.slides[slideIndex] || null;
+			$r.getSlide = function( project, slideIndex ) {
+				// return project.slides[slideIndex] || null;
+				// return $r.get({ id: project.id }).slides;
 			}
 
-	    	return factory;
-	    });
-		*/
+			return $r;
+		});
 
 		app.directive('slideshow', function() {
 			return {
@@ -159,59 +115,63 @@
 			}
 		});
 
-		app.controller('homepageController', function( $scope, $http, HOMEPAGE ) {
+		app.controller('mainController', function( $scope, Project, HOMEPAGE ) {
+			$scope.projects = Project.query();
 			$scope.slides = HOMEPAGE.slides;
 		});
 
 		app.controller('projectController', function( $scope, $location, $routeParams, Project ) {
-			$scope.project = Project.get({ id: $routeParams.name });
-
-			// Update project slide paths
-			angular.forEach($scope.project.slides, function( slide ) {
-				slide.src = 'projects/' + $scope.project.id + '/' + slide.image;
-			});
-
-			/**
-			 * Updates text and background colour according to project or current slide config.
-			 * If a slide value is not provided, the project's default colour value (if one has
-			 * been specified).
-			 *
-			 * @param slide (optional) The slide to get the colour config values from
-			 */
-			$scope.updateColours = function( slide ) {
-				$('body').css({
-					'color': (slide && slide.colour) ? slide.colour : $scope.project.colour || 'inherit',
-					'background-color': (slide && slide.colour) ? slide.background : $scope.project.background || 'inherit'
+			if( $routeParams.name ) {
+				$scope.project = Project.get(function() {
+					debugger;
 				});
-			}
+					// .error(function() {
+					// 	// Redirect back to homepage if the project cannot be found
+					// 	if( !$scope.project ) {
+					// 		$location.url('/');
+					// 	} 
+					// });
 
-			// Redirect back to homepage if the project cannot be found
-			if( !$scope.project ) {
-				$location.url('/');
-			}
+				console.log( angular.copy($scope.projects) );
 
-			//TODO: Replicate with directive? or ng-show toggle
-			$scope.toggleDescription = function( evt ) {
-				$(evt.target).siblings('.description').slideToggle();
+				/**
+				 * Updates text and background colour according to project or current slide config.
+				 * If a slide value is not provided, the project's default colour value (if one has
+				 * been specified).
+				 *
+				 * @param slide (optional) The slide to get the colour config values from
+				 */
+				// $scope.updateColours = function( slide ) {
+				// 	$('body').css({
+				// 		'color': (slide && slide.colour) ? slide.colour : $scope.project.colour || 'inherit',
+				// 		'background-color': (slide && slide.colour) ? slide.background : $scope.project.background || 'inherit'
+				// 	});
+				// }
+
+				// //TODO: Replicate with directive? or ng-show toggle
+				// $scope.toggleDescription = function( evt ) {
+				// 	$(evt.target).siblings('.description').slideToggle();
+				// }
 			}
 		});
 
 		app.controller('navController', function( $scope, $rootScope, $routeParams, Project ) {
 			// Listen for route changes as the controller is outside of ng-view
-			$rootScope.$on('$routeChangeSuccess', function( evt, current, previous ) {
-				// Set the current project based on route argument
-				// $scope.project = projects.getProject( $routeParams.name );
-				$scope.project = Project.get({ id: $routeParams.name });
+			// $rootScope.$on('$routeChangeSuccess', function( evt, current, previous ) {
+			// 	if( $routeParams.name ) {
+			// 		// Set the current project based on route argument
+			// 		$scope.project = Project.get({ id: $routeParams.name });
 
-				// Expand projects list for project pages
-				// By default it will be close on non-project pages but maintain it's open state between routes
-				if( !!$scope.project ) {
-					$scope.showProjectList = true;
-				}
+			// 		// Expand projects list for project pages
+			// 		// By default it will be close on non-project pages but maintain it's open state between routes
+			// 		if( !!$scope.project ) {
+			// 			$scope.showProjectList = true;
+			// 		}
 
-				// Don't show all projects by default for project pages, otherwise show
-				$scope.listAllProjects = !$scope.project;
-			});
+			// 		// Don't show all projects by default for project pages, otherwise show
+			// 		$scope.listAllProjects = !$scope.project;
+			// 	}
+			// });
 		});
 
 		</script>
