@@ -74,7 +74,7 @@ var cbpBGSlideshow = (function() {
 		} );
 
 		// custom trigger to notify us of a slide initialisation
-		$(document).trigger('slide-init', $items.eq(current));
+		$slideshow.trigger('slide-init', $items.eq(current));
 		
 	}
 
@@ -136,7 +136,7 @@ var cbpBGSlideshow = (function() {
 			});
 
 			// custom trigger to notify us of a slide change
-			$(document).trigger('slide-change', $items.eq(current));
+			$slideshow.trigger('slide-change', $items.eq(current));
 		}
 
 	}

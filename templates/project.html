@@ -1,0 +1,14 @@
+<div class="page page-project" data-ng-controller="projectController">
+
+	<slideshow slides="project.slides"></slideshow>
+
+	<div class="content">
+		<!-- TODO: Turn toggleDescription into a directive 'toggle' -->
+		<a href="javascript:void(0);" class="description-toggle expand expanded" data-ng-click="toggleDescription($event)">Hide Info</a>
+		<div class="description">
+			<a href="javascript:void(0);" class="close"></a>
+			<div>{{ project.description }}</div>
+		</div>
+	</div>
+
+</div>
