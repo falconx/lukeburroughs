@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="js/lib/background-slideshow/css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 	</head>
-	<body>
+	<body style="">
 
 		<div id="main" data-ng-controller="mainController">
 
@@ -17,7 +17,7 @@
 
 			<div data-ng-view></div>
 
-			<overlay data-ng-show="overlay">
+			<overlay data-ng-if="overlay.name" name="overlay.name">
 				<div data-ng-include="overlay.src"></div>
 			</overlay>
 
@@ -67,9 +67,9 @@
 		});
 
 		app.factory('Project', function( $http ) {
-			var factory = {};
-
-			factory.projects = [];
+			var factory = {
+					projects: []
+				};
 
 			$http.get('projects.json')
 				.success(function( data ) {
@@ -84,7 +84,7 @@
 					});
 				});
 
-			factory.get = function( projectId ) {
+			factory.get = function( projectId )  {
 				return _.findWhere(factory.projects, { id: projectId });
 			}
 
@@ -106,18 +106,18 @@
 					setTimeout(function() {
 						cbpBGSlideshow.init();
 					}, 0);
-
-					element.bind('slide-init slide-change', function( e, slide ) {
-						debugger;
-						if( $scope.project && slide ) {
-							var index = $(slide).data().$scope.$index,
-								slide = Project.getSlide($scope.project, index);
+				},
+				controller: function( $scope, $element, Project ) {
+					$element.on('slide-init slide-change', function( e, slide ) {
+						if( slide && $scope.project ) {
+							var slideIndex = $(slide).index(),
+								slide = Project.getSlide( $scope.project, slideIndex );
 
 							// Set colour values according to current slide config
 							$scope.updateColours( slide );
 						}
 					});
-				},
+				}
 			}
 		});
 
@@ -128,13 +128,33 @@
 				transclude: true,
 				templateUrl: 'templates/directives/overlay.html',
 				scope: {
-					src: '='
+					name: '='
 				},
 				link: function( scope, element, attrs ) {
 					scope.close = function() {
-						//TODO: This doesn't feel like the best solution
-						this.$parent.overlay = null;
+						scope.name = null;
 					}
+				}
+			}
+		});
+
+		app.directive('toggle', function() {
+			return {
+				restrict: 'E',
+				transclude: true,
+				scope: {
+					open: '=isOpen'
+				},
+				templateUrl: 'templates/directives/toggle.html',
+				link: function( scope, element, attrs ) {
+					scope.isOpen = angular.isDefined(attrs.open) ? scope.$eval(attrs.open) : false;
+					scope.text = (scope.isOpen) ? 'Hide Info' : 'Show Info';
+
+					element.on('click', function() {
+						scope.$apply(function() {
+							scope.isOpen = !scope.isOpen;
+						});
+					});
 				}
 			}
 		});
@@ -143,11 +163,11 @@
 			$scope.projects = Project.projects;
 			$scope.slides = HOMEPAGE.slides;
 
-			// Show overlay
-			$scope.show = function( overlay ) {
+			$scope.show = function( overlayName ) {
 				$scope.overlay = {
-					src: 'templates/overlays/' + overlay + '.html'
-				}
+					name: overlayName,
+					src: 'templates/overlays/' + overlayName + '.html'
+				};
 			}
 		});
 
@@ -155,11 +175,7 @@
 			if( $routeParams.name ) {
 				$scope.project = Project.get( $routeParams.name );
 
-				// Redirect back to homepage if the project cannot be found
-				if( !$scope.project ) {
-					$location.url('/');
-				}
-
+				//TODO: Remove jQuery depency and move this to the mainController
 				/**
 				 * Updates text and background colour according to project or current slide config.
 				 * If a slide value is not provided, the project's default colour value (if one has
@@ -172,11 +188,6 @@
 						'color': (slide && slide.colour) ? slide.colour : $scope.project.colour || 'inherit',
 						'background-color': (slide && slide.colour) ? slide.background : $scope.project.background || 'inherit'
 					});
-				}
-
-				//TODO: Replicate with directive? or ng-show toggle
-				$scope.toggleDescription = function( evt ) {
-					$(evt.target).siblings('.description').slideToggle();
 				}
 			}
 		});
