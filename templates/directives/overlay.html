@@ -1,8 +1,12 @@
 <div class="page page-{{ name }} overlay">
 	<div class="content">
 	    <div class="overlay-links">
-	  		<a href="javascript:void(0);" class="close" data-ng-click="close()"></a>
-	    </div>
+	    	<a href="javascript:;" data-ng-click="close()" class="close"></a>
+	    	<span data-ng-if="name !== 'contact'">
+				<a href="javascript:;" data-ng-click="show('build')" data-ng-class="{ 'active': name === 'build' }">Build</a>
+				<a href="javascript:;" data-ng-click="show('manifesto')" data-ng-class="{ 'active': name === 'manifesto' }">Manifesto</a>
+			</span>
+		</div>
 	    <div data-ng-transclude></div>
 	</div>
 </div>

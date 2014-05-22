@@ -12,8 +12,8 @@
 			},
 			{
 				"image": "2.jpg",
-				"colour": "#FFF",
-				"background": "#222"
+				"colour": "yellow",
+				"background": "red"
 			}
 		],
 		"colour": "#FFF",

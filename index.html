@@ -9,12 +9,12 @@
 		<link rel="stylesheet" type="text/css" href="js/lib/background-slideshow/css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 	</head>
-	<body style="">
+	<body>
 
 		<div id="main" data-ng-controller="mainController">
 
 			<header data-ng-include="'templates/navigation.html'"></header>
-
+			<div data-ng-include="'templates/secondary.html'"></div>
 			<div data-ng-view></div>
 
 			<overlay data-ng-if="overlay.name" name="overlay.name">
@@ -60,7 +60,7 @@
 		 * Pads a number with preceeding zeroes e.g. 5 becomes 005
 		 */
 		app.filter('padNumber', function() {
-			return function pad(input, length) {
+			return function pad( input, length ) {
 				input = input.toString();
 				return input.length < length ? pad("0" + input, length) : input;
 		    };
@@ -109,15 +109,35 @@
 				},
 				controller: function( $scope, $element, Project ) {
 					$element.on('slide-init slide-change', function( e, slide ) {
-						if( slide && $scope.project ) {
+						if( slide && $scope.$parent.project ) {
 							var slideIndex = $(slide).index(),
-								slide = Project.getSlide( $scope.project, slideIndex );
+								slide = Project.getSlide( $scope.$parent.project, slideIndex );
 
 							// Set colour values according to current slide config
 							$scope.updateColours( slide );
 						}
 					});
+
+					/**
+					 * Updates text and background colour according to project or current slide config.
+					 * If a slide value is not provided, the project's default colour value (if one has
+					 * been specified).
+					 *
+					 * @param slide (optional) The slide to get the colour config values from
+					 */
+					$scope.updateColours = function( slide ) {
+						$('body').css({
+							'color': slide.colour || 'inherit',
+							'background-color': slide.background || 'inherit'
+						});
+					}
 				}
+			}
+		});
+
+		app.controller('projectController', function( $scope, $location, $routeParams, Project ) {
+			if( $routeParams.name ) {
+				$scope.project = Project.get( $routeParams.name );
 			}
 		});
 
@@ -134,6 +154,10 @@
 					scope.close = function() {
 						scope.name = null;
 					}
+				},
+				controller: function( $scope ) {
+					// Since we have iscolated scope, we need to make sure we set the show method
+					$scope.show = $scope.$parent.show;
 				}
 			}
 		});
@@ -171,30 +195,11 @@
 			}
 		});
 
-		app.controller('projectController', function( $scope, $location, $routeParams, Project ) {
-			if( $routeParams.name ) {
-				$scope.project = Project.get( $routeParams.name );
-
-				//TODO: Remove jQuery depency and move this to the mainController
-				/**
-				 * Updates text and background colour according to project or current slide config.
-				 * If a slide value is not provided, the project's default colour value (if one has
-				 * been specified).
-				 *
-				 * @param slide (optional) The slide to get the colour config values from
-				 */
-				$scope.updateColours = function( slide ) {
-					$('body').css({
-						'color': (slide && slide.colour) ? slide.colour : $scope.project.colour || 'inherit',
-						'background-color': (slide && slide.colour) ? slide.background : $scope.project.background || 'inherit'
-					});
-				}
-			}
-		});
-
 		app.controller('navController', function( $scope, $rootScope, $routeParams, Project ) {
 			// Listen for route changes as the controller is outside of ng-view
 			$rootScope.$on('$routeChangeSuccess', function( evt, current, previous ) {
+				$scope.project = null;
+
 				if( $routeParams.name ) {
 					// Set the current project based on route argument
 					$scope.project = Project.get( $routeParams.name );

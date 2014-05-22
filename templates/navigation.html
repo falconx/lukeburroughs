@@ -2,7 +2,7 @@
 	<ul>
 		<li><a href="#" title="Go to home page">Luke Burroughs</a></li>
 		<li data-ng-show="projects.length">
-			<a href="javascript:void(0);" title="Show projects" class="expand" data-ng-click="showProjectList = !showProjectList">Projects</a>
+			<a href="javascript:;" title="Show projects" class="expand" data-ng-click="showProjectList = !showProjectList">Projects</a>
 			<ul class="projects" data-ng-show="showProjectList">
 				<li data-ng-repeat="project in projects" data-project="{{ project.id }}">
 					<a data-ng-href="#/project/{{ project.id }}" title="View {{ project.name }}" data-ng-show="$parent.listAllProjects || !$parent.project || $parent.project === project" data-ng-click="$parent.listAllProjects = false">
@@ -10,13 +10,13 @@
 					</a>
 					<div class="project" data-ng-show="!$parent.listAllProjects && $parent.project === project">
 						<sup>{{ $index + 1 | padNumber: 3 }}</sup>{{ project.name }}
-						<a href="javascript:void(0);" class="arrow-left" title="Back to projects" data-ng-click="$parent.listAllProjects = true">L</a>
+						<a href="javascript:;" class="arrow-left" title="Back to projects" data-ng-click="$parent.listAllProjects = true">L</a>
 						<div>{{ project.subtitle }}</div>
 					</div>
 				</li>
 			</ul>
 		</li>
-		<li><a href="javascript:void(0);" title="Manifesto" data-ng-click="show('manifesto')">Manifesto</a></li>
-		<li><a href="javascript:void(0);" title="Get in touch" data-ng-click="show('contact')">Get In Touch</a></li>
+		<li><a href="javascript:;" title="Manifesto" data-ng-click="show('manifesto')">Manifesto</a></li>
+		<li><a href="javascript:;" title="Get in touch" data-ng-click="show('contact')">Get In Touch</a></li>
 	</ul>
 </nav>
