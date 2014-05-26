@@ -15,9 +15,7 @@
 				"colour": "yellow",
 				"background": "red"
 			}
-		],
-		"colour": "#FFF",
-		"background": "#151515"
+		]
 	},
 	{
 		"id": "journeys",

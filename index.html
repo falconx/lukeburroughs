@@ -9,9 +9,9 @@
 		<link rel="stylesheet" type="text/css" href="js/lib/background-slideshow/css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 	</head>
-	<body>
+	<body data-ng-controller="mainController" data-ng-style="colours">
 
-		<div id="main" data-ng-controller="mainController">
+		<div id="main">
 
 			<header data-ng-include="'templates/navigation.html'"></header>
 			<div data-ng-include="'templates/secondary.html'"></div>
@@ -88,49 +88,25 @@
 				return _.findWhere(factory.projects, { id: projectId });
 			}
 
-			factory.getSlide = function( project, slideIndex ) {
-				return factory.get( project.id ).slides[ slideIndex ];
-			}
-
 			return factory;
 		});
 
-		app.directive('slideshow', function() {
+		app.directive('slideshow', function( $timeout ) {
 			return {
 				restrict: 'E',
 				templateUrl: 'templates/directives/slideshow.html',
 				scope: {
-					slides: '='
+					slides: '=',
+					onchange: '&'
 				},
 				link: function( scope, element, attrs ) {
-					setTimeout(function() {
+					$timeout(function() {
 						cbpBGSlideshow.init();
-					}, 0);
-				},
-				controller: function( $scope, $element, Project ) {
-					$element.on('slide-init slide-change', function( e, slide ) {
-						if( slide && $scope.$parent.project ) {
-							var slideIndex = $(slide).index(),
-								slide = Project.getSlide( $scope.$parent.project, slideIndex );
-
-							// Set colour values according to current slide config
-							$scope.updateColours( slide );
-						}
 					});
 
-					/**
-					 * Updates text and background colour according to project or current slide config.
-					 * If a slide value is not provided, the project's default colour value (if one has
-					 * been specified).
-					 *
-					 * @param slide (optional) The slide to get the colour config values from
-					 */
-					$scope.updateColours = function( slide ) {
-						$('body').css({
-							'color': slide.colour || 'inherit',
-							'background-color': slide.background || 'inherit'
-						});
-					}
+					element.on('slide-init slide-change', function( evt, slide ) {
+						scope.onchange({ slide: slide });
+					});
 				}
 			}
 		});
@@ -138,6 +114,19 @@
 		app.controller('projectController', function( $scope, $location, $routeParams, Project ) {
 			if( $routeParams.name ) {
 				$scope.project = Project.get( $routeParams.name );
+			}
+
+			/**
+			 * Slide change and initialisation callback
+			 */
+			$scope.changeSlide = function( slide ) {
+				if( slide && $scope.project ) {
+					var slideIndex = $(slide).index(),
+						slide = $scope.project.slides[ slideIndex ];
+
+					// Updates the text and background colour according to the current slide config
+					$scope.$emit('slide-change', slide);
+				}
 			}
 		});
 
@@ -148,20 +137,22 @@
 				transclude: true,
 				templateUrl: 'templates/directives/overlay.html',
 				scope: {
-					name: '='
+					name: '=',
+					show: '&'
 				},
 				link: function( scope, element, attrs ) {
-					scope.close = function() {
-						scope.name = null;
+					scope.show = function() {
+						debugger;
 					}
 				},
 				controller: function( $scope ) {
-					// Since we have iscolated scope, we need to make sure we set the show method
+					// TODO: Avoid using $parent
 					$scope.show = $scope.$parent.show;
 				}
 			}
 		});
 
+		// TODO: Pass in hide/show text values
 		app.directive('toggle', function() {
 			return {
 				restrict: 'E',
@@ -193,6 +184,18 @@
 					src: 'templates/overlays/' + overlayName + '.html'
 				};
 			}
+
+			/**
+			 * Updates text and background colours on slide update
+			 */
+			$scope.$on('slide-change', function( evt, slide ) {
+				$scope.$apply(function() {
+					$scope.colours = {
+						'color': slide.colour,
+						'background-color': slide.background
+					};
+				});
+			});
 		});
 
 		app.controller('navController', function( $scope, $rootScope, $routeParams, Project ) {

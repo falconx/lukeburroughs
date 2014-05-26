@@ -1,6 +1,6 @@
 <div class="page page-project" data-ng-controller="projectController">
 
-	<slideshow slides="project.slides"></slideshow>
+	<slideshow slides="project.slides" onchange="changeSlide(slide)"></slideshow>
 
 	<div class="content">
 		<toggle class="description" open="true">{{ project.description }}</toggle>
