@@ -13,7 +13,9 @@ angular.module('config', [])
 			}
 		]
 	})
-	.constant('PROJECT_IMAGE_URL', '/projects')
-	.constant('SLIDER', {
-		"animation_speed": "5000"
-	});
+	.constant('ANIMATION_TOGGLE_SPEED', 500)
+	.constant('DEFAULT_TOGGLE_TEXT', {
+		"open": "Show Info",
+		"close": "Hide Info"
+	})
+	.constant('DEFAULT_TOGGLE_OPEN', false);

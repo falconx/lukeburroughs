@@ -7,37 +7,37 @@
     	<title>AngularJS Demo</title>
     	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="js/lib/background-slideshow/css/component.css" />
+		<link rel="stylesheet" type="text/css" href="css/ng-animate.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 	</head>
 	<body data-ng-controller="mainController" data-ng-style="colours">
-
 		<div id="main">
 
 			<header data-ng-include="'templates/navigation.html'"></header>
 			<div data-ng-include="'templates/secondary.html'"></div>
 			<div data-ng-view></div>
 
-			<overlay data-ng-if="overlay.name" name="overlay.name">
-				<div data-ng-include="overlay.src"></div>
-			</overlay>
+			<overlay name="overlay.name" show="overlay.show"></overlay>
 
 		</div>
 
 		<!-- Scripts -->
-		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
 		<script src="js/lib/modernizr.custom.js"></script>
 		<script src="js/lib/background-slideshow/js/jquery.imagesloaded.min.js"></script>
 		<script src="js/lib/background-slideshow/js/cbpBGSlideshow.js"></script>
 
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
+		<script src="https://code.angularjs.org/1.2.0-rc.2/angular.js"></script>
+		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-route.js"></script>
+		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-resource.js"></script>
+		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-animate.js"></script>
+
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 		<script src="config.js"></script>
 
 		<script>
 
-		var app = angular.module('lukeburroughs', ['ngRoute', 'ngResource', 'config']);
+		var app = angular.module('lukeburroughs', ['ngRoute', 'ngResource', 'ngAnimate', 'config']);
 
 		/**
 		 * Routing
@@ -111,64 +111,102 @@
 			}
 		});
 
-		app.controller('projectController', function( $scope, $location, $routeParams, Project ) {
-			if( $routeParams.name ) {
-				$scope.project = Project.get( $routeParams.name );
-			}
-
-			/**
-			 * Slide change and initialisation callback
-			 */
-			$scope.changeSlide = function( slide ) {
-				if( slide && $scope.project ) {
-					var slideIndex = $(slide).index(),
-						slide = $scope.project.slides[ slideIndex ];
-
-					// Updates the text and background colour according to the current slide config
-					$scope.$emit('slide-change', slide);
-				}
-			}
-		});
-
-		app.directive('overlay', function() {
+		app.directive('overlay', function( $window, $timeout, $compile, $http ) {	
 			return {
 				restrict: 'E',
-				replace: true,
-				transclude: true,
 				templateUrl: 'templates/directives/overlay.html',
 				scope: {
 					name: '=',
-					show: '&'
+					show: '='
 				},
 				link: function( scope, element, attrs ) {
-					scope.show = function() {
-						debugger;
+					var templatePath = 'templates/overlays/',
+						templateMap = {
+							build: 'build.html',
+							contact: 'contact.html',
+							manifesto: 'manifesto.html'
+						};
+
+					scope.show = angular.isDefined(scope.show) ? scope.$eval(scope.show) : false;
+
+					// Load base template with include directive to our mapped template
+					$http.get('templates/directives/overlay.html')
+						.success(function( data ) {
+							element.html( data );
+							$compile( element.contents() )(scope);
+						});
+
+					scope.close = function() {
+						scope.show = false;
 					}
-				},
-				controller: function( $scope ) {
-					// TODO: Avoid using $parent
-					$scope.show = $scope.$parent.show;
+
+					scope.$watch('name', function( newVal, oldVal ) {
+						if( newVal ) {
+							scope.template = templatePath + templateMap[ newVal ];
+
+							// Bit of a hack to get the animation to work. Hide and re-show the
+							// ng-include content to trigger the animation.
+							scope.show = false;
+							$timeout(function() {
+								scope.show = true;
+
+								$timeout(function() {
+									scope.updateHeight();
+								});
+							});
+						}
+					});
+
+					/**
+					 * Re-calculates and updates the overlays height based on the document
+					 */
+					scope.updateHeight = function() {
+						element.children('.overlay').height( $(document).height() );
+					}
+
+					angular.element( $window ).bind('resize', function( evt ) {
+						if( scope.show ) {
+							scope.updateHeight();
+						}
+					});
 				}
 			}
 		});
 
-		// TODO: Pass in hide/show text values
-		app.directive('toggle', function() {
+		app.animation('.slide-toggle', function( ANIMATION_TOGGLE_SPEED ) {
+			return { 
+		        addClass: function( el, className, done ) {
+		            el.slideUp( ANIMATION_TOGGLE_SPEED, done );
+		        },
+		        removeClass: function( el, className, done ) {
+		            el.hide().slideDown( ANIMATION_TOGGLE_SPEED, done );
+		        }
+		    };
+		});
+
+		app.directive('toggle', function( DEFAULT_TOGGLE_TEXT, DEFAULT_TOGGLE_OPEN ) {
 			return {
 				restrict: 'E',
 				transclude: true,
 				scope: {
-					open: '=isOpen'
+					open: '=isOpen',
+					textColour: '='
 				},
 				templateUrl: 'templates/directives/toggle.html',
 				link: function( scope, element, attrs ) {
-					scope.isOpen = angular.isDefined(attrs.open) ? scope.$eval(attrs.open) : false;
-					scope.text = (scope.isOpen) ? 'Hide Info' : 'Show Info';
+					scope.isOpen = angular.isDefined(attrs.open) ? scope.$eval(attrs.open) : DEFAULT_TOGGLE_OPEN;
 
-					element.on('click', function() {
-						scope.$apply(function() {
-							scope.isOpen = !scope.isOpen;
-						});
+					// Set open and closed toggle label text
+					scope.textOpen = (attrs.textOpen) ? attrs.textOpen : DEFAULT_TOGGLE_TEXT.open;
+					scope.textClose = (attrs.textClose) ? attrs.textClose : DEFAULT_TOGGLE_TEXT.close;
+					scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
+
+					scope.toggle = function() {
+						scope.isOpen = !scope.isOpen;
+					}
+
+					scope.$watch('isOpen', function( newVal, oldVal ) {
+						scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
 					});
 				}
 			}
@@ -178,10 +216,18 @@
 			$scope.projects = Project.projects;
 			$scope.slides = HOMEPAGE.slides;
 
+			// Reset colours upon route change
+			$scope.$on('$routeChangeSuccess', function( evt, current, previous ) {
+				$scope.colours = null;
+			});
+
+			/**
+			 * Shows the specified overlay by name
+			 */
 			$scope.show = function( overlayName ) {
 				$scope.overlay = {
 					name: overlayName,
-					src: 'templates/overlays/' + overlayName + '.html'
+					show: true
 				};
 			}
 
@@ -217,6 +263,25 @@
 					$scope.listAllProjects = !$scope.project;
 				}
 			});
+		});
+
+		app.controller('projectController', function( $scope, $location, $routeParams, Project ) {
+			if( $routeParams.name ) {
+				$scope.project = Project.get( $routeParams.name );
+			}
+
+			/**
+			 * Slide change and initialisation callback
+			 */
+			$scope.changeSlide = function( slide ) {
+				if( slide && $scope.project ) {
+					var slideIndex = $(slide).index(),
+						slide = $scope.project.slides[ slideIndex ];
+
+					// Updates the text and background colour according to the current slide config
+					$scope.$emit('slide-change', slide);
+				}
+			}
 		});
 
 		</script>

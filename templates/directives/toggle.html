@@ -1,6 +1,6 @@
-<a href="javascript:;" class="description-toggle expand" data-ng-class="{ 'expanded': open }">{{ text }}</a>
+<a href="javascript:;" class="description-toggle expand" data-ng-click="toggle()" data-ng-class="{ 'expanded': isOpen }" data-ng-style="{ 'color': textColour }">{{ text }}</a>
 
-<div data-ng-show="isOpen">
-	<a href="javascript:;" class="close"></a>
+<div class="toggle-content" data-ng-class="{ 'slide-toggle': !isOpen }">
+	<a href="javascript:;" class="close" data-ng-click="isOpen = false"></a>
 	<div data-ng-transclude></div>
 </div>

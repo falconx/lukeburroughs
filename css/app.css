@@ -110,8 +110,10 @@ blockquote {
 
 .expand:after {
 	content: '2';
-	font-family: 'make';
+	display: inline-block;
+	height: 16px;
 	color: #ff2a7c;
+	font-family: 'make';
 	line-height: 0;
 	font-size: 1.2em;
 	position: relative;
@@ -121,8 +123,6 @@ blockquote {
 
 .expanded:after {
 	content: '1';
-	font-family: 'make';
-	color: #ff2a7c;
 }
 
 .hide-text {
@@ -339,8 +339,13 @@ span.cbp-binext:before {
 /* Overlay */
 
 .overlay {
-	z-index: 20;
+	color: #fff;
 	background: rgba(0, 0, 0, .7);
+	z-index: 20;
+}
+
+.overlay .close {
+	font-size: 0.6em;
 }
 
 .overlay .content {
@@ -438,7 +443,7 @@ span.cbp-binext:before {
 
 #primary ul ul li {
 	display: inline-block;
-	margin-right: 5px;
+	margin-right: 8px;
 	line-height: 1.3;
 	white-space: nowrap;
 }
@@ -449,8 +454,6 @@ span.cbp-binext:before {
 
 #primary ul ul li a:after {
 	content: '/';
-	color: #fff;
-	margin-left: 10px;
 	font-size: inherit;
 	line-height: inherit;
 	position: static;
@@ -520,7 +523,7 @@ span.cbp-binext:before {
 
 /* Project */
 
-.page-project .content {
+.page-project > .content {
 	position: absolute;
 	z-index: 20;
 	top: 100px;
@@ -534,17 +537,19 @@ span.cbp-binext:before {
 	font-size: 0.9em;
 }
 
+.page-project .description .highlight {
+	display: inline;
+	line-height: 1.45;
+	color: #fff;
+	background: #ff2a7c;
+}
+
 .page-project .description .close {
 	display: none;
 }
 
-.page-project .description .highlight {
-	display: inline;
-	line-height: 1.45;
-	background: #ff2a7c;
-}
-
 .page-project .description-toggle {
+	font-family: 'akzidenz-grotesk-medium';
 	font-size: 1.4em;
 	margin: 0 0 7px;
 	display: block;
@@ -555,9 +560,13 @@ span.cbp-binext:before {
 	font-size: 1.5em;
 }
 
+.page-project .toggle-content {
+	position: relative;
+}
+
 /* Media Queries */
 
-@media (max-width : 990px) {
+@media (max-width: 990px) {
 
 	.page-build .column {
 		float: none;
@@ -570,7 +579,7 @@ span.cbp-binext:before {
 
 }
 
-@media (max-width : 800px) {
+@media (max-width: 800px) {
 
 	#secondary {
 		text-align: right;
@@ -583,7 +592,7 @@ span.cbp-binext:before {
 	}
 
 	.page-project,
-	.page-project .content {
+	.page-project > .content {
 		position: static;
 		margin-top: 0;
 	}
@@ -605,7 +614,7 @@ span.cbp-binext:before {
 
 }
 
-@media (max-width : 620px) {
+@media (max-width: 620px) {
 
 	textarea {
 		font-size: 3em !important;
@@ -627,7 +636,7 @@ span.cbp-binext:before {
 
 }
 
-@media only screen and (min-width : 320px) and (max-width : 568px) {
+@media (max-width: 568px) {
 
 	h1 {
 		font-size: 4.5em !important;
@@ -651,8 +660,8 @@ span.cbp-binext:before {
 		display: none;
 	}
 
-	.page-project .content,
-	.page-project .description > div {
+	.page-project > .content,
+	.page-project .toggle-content > div {
 		width: 85%;
 	}
 
@@ -699,11 +708,17 @@ span.cbp-binext:before {
 	}
 }
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : landscape) {
+@media (max-device-width: 650px) and (orientation: landscape) {
 
 	.page-project .cbp-bislideshow {
 		top: 0;
 		margin-top: 0;
+	}
+
+	#secondary,
+	#cbp-bicontrols,
+	.slide-overlay {
+		display: none;
 	}
 
 }

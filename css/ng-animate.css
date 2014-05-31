@@ -1,0 +1,534 @@
+.toggle.ng-enter {
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transition-duration: 500ms
+}
+
+.toggle.ng-leave {
+	-webkit-transition-duration: 500ms;
+	opacity: 1;
+	transition-duration: 500ms
+}
+
+.toggle.ng-hide-add {
+	-webkit-transition-duration: 500ms;
+	opacity: 1;
+	transition-duration: 500ms
+}
+
+.toggle.ng-hide-remove {
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transition-duration: 500ms
+}
+
+.slide-top.ng-enter {
+	-ms-transform: translateY(60px);
+	-webkit-transform: translateY(60px);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: translateY(60px);
+	transition-duration: 500ms
+}
+
+.slide-top.ng-hide-remove {
+	-ms-transform: translateY(60px);
+	-webkit-transform: translateY(60px);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: translateY(60px);
+	transition-duration: 500ms
+}
+
+.slide-right.ng-enter {
+	-ms-transform: translateX(60px);
+	-webkit-transform: translateX(60px);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: translateX(60px);
+	transition-duration: 500ms
+}
+
+.slide-right.ng-hide-remove {
+	-ms-transform: translateX(60px);
+	-webkit-transform: translateX(60px);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: translateX(60px);
+	transition-duration: 500ms
+}
+
+.slide-left.ng-enter {
+	-ms-transform: translateX(-60px);
+	-webkit-transform: translateX(-60px);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: translateX(-60px);
+	transition-duration: 500ms
+}
+
+.slide-left.ng-hide-remove {
+	-ms-transform: translateX(-60px);
+	-webkit-transform: translateX(-60px);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: translateX(-60px);
+	transition-duration: 500ms
+}
+
+.slide-down.ng-enter {
+	-ms-transform: translateY(-60px);
+	-webkit-transform: translateY(-60px);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: translateY(-60px);
+	transition-duration: 500ms
+}
+
+.slide-down.ng-hide-remove {
+	-ms-transform: translateY(-60px);
+	-webkit-transform: translateY(-60px);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: translateY(-60px);
+	transition-duration: 500ms
+}
+
+.bouncy-slide-top.ng-enter {
+	-ms-transform: translateY(240px);
+	-webkit-transform: translateY(240px);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: translateY(240px);
+	transition-duration: 500ms
+}
+
+.bouncy-slide-top.ng-hide-remove {
+	-ms-transform: translateY(240px);
+	-webkit-transform: translateY(240px);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: translateY(240px);
+	transition-duration: 500ms
+}
+
+.bouncy-slide-right.ng-enter {
+	-ms-transform: translateX(240px);
+	-webkit-transform: translateX(240px);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: translateX(240px);
+	transition-duration: 500ms
+}
+
+.bouncy-slide-right.ng-hide-remove {
+	-ms-transform: translateX(240px);
+	-webkit-transform: translateX(240px);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: translateX(240px);
+	transition-duration: 500ms
+}
+
+.bouncy-slide-left.ng-enter {
+	-ms-transform: translateX(-240px);
+	-webkit-transform: translateX(-240px);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: translateX(-240px);
+	transition-duration: 500ms
+}
+
+.bouncy-slide-left.ng-hide-remove {
+	-ms-transform: translateX(-240px);
+	-webkit-transform: translateX(-240px);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: translateX(-240px);
+	transition-duration: 500ms
+}
+
+.bouncy-slide-down.ng-enter {
+	-ms-transform: translateY(-240px);
+	-webkit-transform: translateY(-240px);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: translateY(-240px);
+	transition-duration: 500ms
+}
+
+.bouncy-slide-down.ng-hide-remove {
+	-ms-transform: translateY(-240px);
+	-webkit-transform: translateY(-240px);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: translateY(-240px);
+	transition-duration: 500ms
+}
+
+.scale-fade.ng-enter {
+	-ms-transform: scale(0.7);
+	-webkit-transform: scale(0.7);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: scale(0.7);
+	transition-duration: 500ms
+}
+
+.scale-fade.ng-hide-remove {
+	-ms-transform: scale(0.7);
+	-webkit-transform: scale(0.7);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: scale(0.7);
+	transition-duration: 500ms
+}
+
+.spin-toggle.ng-enter {
+	-ms-transform: rotate(225deg);
+	-webkit-transform: rotate(225deg);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: rotate(225deg);
+	transition-duration: 500ms
+}
+
+.spin-toggle.ng-hide-remove {
+	-ms-transform: rotate(225deg);
+	-webkit-transform: rotate(225deg);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: rotate(225deg);
+	transition-duration: 500ms
+}
+
+.scale-fade-in.ng-enter {
+	-ms-transform: scale(3);
+	-webkit-transform: scale(3);
+	-webkit-transition-duration: 500ms;
+	opacity: 0;
+	transform: scale(3);
+	transition-duration: 500ms
+}
+
+.scale-fade-in.ng-hide-remove {
+	-ms-transform: scale(3);
+	-webkit-transform: scale(3);
+	-webkit-transition-duration: 500ms;
+	display: block!important;
+	opacity: 0;
+	transform: scale(3);
+	transition-duration: 500ms
+}
+
+.bouncy-scale-in.ng-enter {
+	-ms-transform: scale(3);
+	-webkit-transform: scale(3);
+	-webkit-transition-duration: 450ms;
+	opacity: 0;
+	transform: scale(3);
+	transition-duration: 450ms
+}
+
+.bouncy-scale-in.ng-hide-remove {
+	-ms-transform: scale(3);
+	-webkit-transform: scale(3);
+	-webkit-transition-duration: 450ms;
+	display: block!important;
+	opacity: 0;
+	transform: scale(3);
+	transition-duration: 450ms
+}
+
+.flip-in.ng-enter {
+	-ms-transform: perspective(300px) rotateX(90deg);
+	-webkit-transform: perspective(300px) rotateX(90deg);
+	-webkit-transition-duration: 550ms;
+	opacity: 0.7;
+	transform: perspective(300px) rotateX(90deg);
+	transition-duration: 550ms
+}
+
+.flip-in.ng-leave-active {
+	-ms-transform: perspective(300px) rotateX(135deg);
+	-webkit-transform: perspective(300px) rotateX(135deg);
+	opacity: 0.7;
+	transform: perspective(300px) rotateX(135deg)
+}
+
+.flip-in.ng-hide-add.ng-hide-add-active {
+	-ms-transform: perspective(300px) rotateX(135deg);
+	-webkit-transform: perspective(300px) rotateX(135deg);
+	opacity: 0;
+	transform: perspective(300px) rotateX(135deg)
+}
+
+.flip-in.ng-hide-remove {
+	-ms-transform: perspective(300px) rotateX(90deg);
+	-webkit-transform: perspective(300px) rotateX(90deg);
+	-webkit-transition-duration: 550ms;
+	display: block!important;
+	opacity: 0;
+	transform: perspective(300px) rotateX(90deg);
+	transition-duration: 550ms
+}
+
+.rotate-in.ng-enter {
+	-ms-transform: perspective(300px) rotateY(40deg);
+	-webkit-transform: perspective(300px) rotateY(40deg);
+	-webkit-transition-duration: 550ms;
+	opacity: 0.7;
+	transform: perspective(300px) rotateY(40deg);
+	transition-duration: 550ms
+}
+
+.rotate-in.ng-leave-active {
+	-ms-transform: perspective(300px) rotateY(-40deg);
+	-webkit-transform: perspective(300px) rotateY(-40deg);
+	opacity: 0.7;
+	transform: perspective(300px) rotateY(-40deg)
+}
+
+.rotate-in.ng-hide-add.ng-hide-add-active {
+	-ms-transform: perspective(300px) rotateY(-40deg);
+	-webkit-transform: perspective(300px) rotateY(-40deg);
+	opacity: 0;
+	transform: perspective(300px) rotateY(-40deg)
+}
+
+.rotate-in.ng-hide-remove {
+	-ms-transform: perspective(300px) rotateY(40deg);
+	-webkit-transform: perspective(300px) rotateY(40deg);
+	-webkit-transition-duration: 550ms;
+	display: block!important;
+	opacity: 0;
+	transform: perspective(300px) rotateY(40deg);
+	transition-duration: 550ms
+}
+
+.toggle,.slide-top,.slide-right,.slide-left,.slide-down,.scale-fade,.spin-toggle,.scale-fade-in,.flip-in {
+	-moz-transition: all 0 cubic-bezier(0.25,0.46,0.45,0.94);
+	-moz-transition-timing-function: cubic-bezier(0.25,0.46,0.45,0.94);
+	-ms-transition: all 0 cubic-bezier(0.25,0.46,0.45,0.94);
+	-ms-transition-timing-function: cubic-bezier(0.25,0.46,0.45,0.94);
+	-o-transition: all 0 cubic-bezier(0.25,0.46,0.45,0.94);
+	-o-transition-timing-function: cubic-bezier(0.25,0.46,0.45,0.94);
+	-webkit-transition: all 0 cubic-bezier(0.25,0.46,0.45,0.94);
+	-webkit-transition-timing-function: cubic-bezier(0.25,0.46,0.45,0.94);
+	transition: all 0 cubic-bezier(0.25,0.46,0.45,0.94);
+	transition-timing-function: cubic-bezier(0.25,0.46,0.45,0.94)
+}
+
+.toggle.ng-enter-active,.toggle.ng-hide-remove.ng-hide-remove-active {
+	opacity: 1
+}
+
+.toggle.ng-leave-active,.toggle.ng-hide-add.ng-hide-add-active {
+	opacity: 0
+}
+
+.slide-top.ng-enter-active,.slide-top.ng-hide-remove.ng-hide-remove-active,.slide-down.ng-enter-active,.slide-down.ng-hide-remove.ng-hide-remove-active,.bouncy-slide-top.ng-enter-active,.bouncy-slide-top.ng-hide-remove.ng-hide-remove-active,.bouncy-slide-down.ng-enter-active,.bouncy-slide-down.ng-hide-remove.ng-hide-remove-active {
+	-ms-transform: translateY(0);
+	-webkit-transform: translateY(0);
+	opacity: 1;
+	transform: translateY(0)
+}
+
+.slide-top.ng-leave,.slide-top.ng-hide-add,.slide-down.ng-leave,.slide-down.ng-hide-add,.bouncy-slide-top.ng-leave,.bouncy-slide-top.ng-hide-add,.bouncy-slide-down.ng-leave,.bouncy-slide-down.ng-hide-add {
+	-ms-transform: translateY(0);
+	-webkit-transform: translateY(0);
+	-webkit-transition-duration: 500ms;
+	opacity: 1;
+	transform: translateY(0);
+	transition-duration: 500ms
+}
+
+.slide-top.ng-leave-active,.slide-top.ng-hide-add.ng-hide-add-active {
+	-ms-transform: translateY(60px);
+	-webkit-transform: translateY(60px);
+	opacity: 0;
+	transform: translateY(60px)
+}
+
+.slide-right.ng-enter-active,.slide-right.ng-hide-remove.ng-hide-remove-active,.slide-left.ng-enter-active,.slide-left.ng-hide-remove.ng-hide-remove-active,.bouncy-slide-right.ng-enter-active,.bouncy-slide-right.ng-hide-remove.ng-hide-remove-active,.bouncy-slide-left.ng-enter-active,.bouncy-slide-left.ng-hide-remove.ng-hide-remove-active {
+	-ms-transform: translateX(0);
+	-webkit-transform: translateX(0);
+	opacity: 1;
+	transform: translateX(0)
+}
+
+.slide-right.ng-leave,.slide-right.ng-hide-add,.slide-left.ng-leave,.slide-left.ng-hide-add,.bouncy-slide-right.ng-leave,.bouncy-slide-right.ng-hide-add,.bouncy-slide-left.ng-leave,.bouncy-slide-left.ng-hide-add {
+	-ms-transform: translateX(0);
+	-webkit-transform: translateX(0);
+	-webkit-transition-duration: 500ms;
+	opacity: 1;
+	transform: translateX(0);
+	transition-duration: 500ms
+}
+
+.slide-right.ng-leave-active,.slide-right.ng-hide-add.ng-hide-add-active {
+	-ms-transform: translateX(60px);
+	-webkit-transform: translateX(60px);
+	opacity: 0;
+	transform: translateX(60px)
+}
+
+.slide-left.ng-leave-active,.slide-left.ng-hide-add.ng-hide-add-active {
+	-ms-transform: translateX(-60px);
+	-webkit-transform: translateX(-60px);
+	opacity: 0;
+	transform: translateX(-60px)
+}
+
+.slide-down.ng-leave-active,.slide-down.ng-hide-add.ng-hide-add-active {
+	-ms-transform: translateY(-60px);
+	-webkit-transform: translateY(-60px);
+	opacity: 0;
+	transform: translateY(-60px)
+}
+
+.bouncy-slide-top,.bouncy-slide-right,.bouncy-slide-left,.bouncy-slide-down,.bouncy-scale-in,.rotate-in {
+	-moz-transition: all 0 cubic-bezier(0.175,0.885,0.32,1.275);
+	-moz-transition-timing-function: cubic-bezier(0.175,0.885,0.45,1.595);
+	-ms-transition: all 0 cubic-bezier(0.175,0.885,0.32,1.275);
+	-ms-transition-timing-function: cubic-bezier(0.175,0.885,0.45,1.595);
+	-o-transition: all 0 cubic-bezier(0.175,0.885,0.32,1.275);
+	-o-transition-timing-function: cubic-bezier(0.175,0.885,0.45,1.595);
+	-webkit-transition: all 0 cubic-bezier(0.175,0.885,0.32,1.275);
+	-webkit-transition-timing-function: cubic-bezier(0.175,0.885,0.45,1.595);
+	transition: all 0 cubic-bezier(0.175,0.885,0.32,1.275);
+	transition-timing-function: cubic-bezier(0.175,0.885,0.45,1.595)
+}
+
+.bouncy-slide-top.ng-leave-active,.bouncy-slide-top.ng-hide-add.ng-hide-add-active {
+	-ms-transform: translateY(240px);
+	-webkit-transform: translateY(240px);
+	opacity: 0;
+	transform: translateY(240px)
+}
+
+.bouncy-slide-right.ng-leave-active,.bouncy-slide-right.ng-hide-add.ng-hide-add-active {
+	-ms-transform: translateX(240px);
+	-webkit-transform: translateX(240px);
+	opacity: 0;
+	transform: translateX(240px)
+}
+
+.bouncy-slide-left.ng-leave-active,.bouncy-slide-left.ng-hide-add.ng-hide-add-active {
+	-ms-transform: translateX(-240px);
+	-webkit-transform: translateX(-240px);
+	opacity: 0;
+	transform: translateX(-240px)
+}
+
+.bouncy-slide-down.ng-leave-active,.bouncy-slide-down.ng-hide-add.ng-hide-add-active {
+	-ms-transform: translateY(-240px);
+	-webkit-transform: translateY(-240px);
+	opacity: 0;
+	transform: translateY(-240px)
+}
+
+.scale-fade.ng-enter-active,.scale-fade.ng-hide-remove.ng-hide-remove-active,.scale-fade-in.ng-enter-active,.scale-fade-in.ng-hide-remove.ng-hide-remove-active,.bouncy-scale-in.ng-enter-active,.bouncy-scale-in.ng-hide-remove.ng-hide-remove-active {
+	-ms-transform: scale(1);
+	-webkit-transform: scale(1);
+	opacity: 1;
+	transform: scale(1)
+}
+
+.scale-fade.ng-leave,.scale-fade.ng-hide-add,.scale-fade-in.ng-leave,.scale-fade-in.ng-hide-add {
+	-ms-transform: scale(1);
+	-webkit-transform: scale(1);
+	-webkit-transition-duration: 500ms;
+	opacity: 1;
+	transform: scale(1);
+	transition-duration: 500ms
+}
+
+.scale-fade.ng-leave-active,.scale-fade.ng-hide-add.ng-hide-add-active {
+	-ms-transform: scale(0.7);
+	-webkit-transform: scale(0.7);
+	opacity: 0;
+	transform: scale(0.7)
+}
+
+.spin-toggle.ng-enter-active,.spin-toggle.ng-hide-remove.ng-hide-remove-active {
+	-ms-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	opacity: 1;
+	transform: rotate(0deg)
+}
+
+.spin-toggle.ng-leave,.spin-toggle.ng-hide-add {
+	-ms-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	-webkit-transition-duration: 500ms;
+	opacity: 1;
+	transform: rotate(0deg);
+	transition-duration: 500ms
+}
+
+.spin-toggle.ng-leave-active,.spin-toggle.ng-hide-add.ng-hide-add-active {
+	-ms-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	opacity: 0;
+	transform: rotate(90deg)
+}
+
+.scale-fade-in.ng-leave-active,.scale-fade-in.ng-hide-add.ng-hide-add-active,.bouncy-scale-in.ng-leave-active,.bouncy-scale-in.ng-hide-add.ng-hide-add-active {
+	-ms-transform: scale(3);
+	-webkit-transform: scale(3);
+	opacity: 0;
+	transform: scale(3)
+}
+
+.bouncy-scale-in.ng-leave,.bouncy-scale-in.ng-hide-add {
+	-ms-transform: scale(1);
+	-webkit-transform: scale(1);
+	-webkit-transition-duration: 450ms;
+	opacity: 1;
+	transform: scale(1);
+	transition-duration: 450ms
+}
+
+.flip-in.ng-enter-active,.flip-in.ng-hide-remove.ng-hide-remove-active {
+	-ms-transform: perspective(300px) rotateX(0deg);
+	-webkit-transform: perspective(300px) rotateX(0deg);
+	opacity: 1;
+	transform: perspective(300px) rotateX(0deg)
+}
+
+.flip-in.ng-leave,.flip-in.ng-hide-add {
+	-ms-transform: perspective(300px) rotateX(0deg);
+	-webkit-transform: perspective(300px) rotateX(0deg);
+	-webkit-transition-duration: 550ms;
+	opacity: 1;
+	transform: perspective(300px) rotateX(0deg);
+	transition-duration: 550ms
+}
+
+.rotate-in.ng-enter-active,.rotate-in.ng-hide-remove.ng-hide-remove-active {
+	-ms-transform: perspective(300px) rotateY(0deg);
+	-webkit-transform: perspective(300px) rotateY(0deg);
+	opacity: 1;
+	transform: perspective(300px) rotateY(0deg)
+}
+
+.rotate-in.ng-leave,.rotate-in.ng-hide-add {
+	-ms-transform: perspective(300px) rotateY(0deg);
+	-webkit-transform: perspective(300px) rotateY(0deg);
+	-webkit-transition-duration: 550ms;
+	opacity: 1;
+	transform: perspective(300px) rotateY(0deg);
+	transition-duration: 550ms
+}

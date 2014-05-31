@@ -3,7 +3,9 @@
 	<slideshow slides="project.slides" onchange="changeSlide(slide)"></slideshow>
 
 	<div class="content">
-		<toggle class="description" open="true">{{ project.description }}</toggle>
+		<toggle class="description" text-colour="colours.color">
+			<span class="highlight">{{ project.description }}</span>
+		</toggle>
 	</div>
 
 </div>
