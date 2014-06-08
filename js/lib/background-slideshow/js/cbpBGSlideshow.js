@@ -50,7 +50,6 @@ var cbpBGSlideshow = (function() {
 
 		// preload the images
 		$slideshow.imagesLoaded( function() {
-			
 			if( Modernizr.backgroundsize ) {
 				$items.each( function() {
 					var $item = $( this );
@@ -71,10 +70,9 @@ var cbpBGSlideshow = (function() {
 			// start the slideshow
 			startSlideshow();
 
+			// custom trigger to notify us of a slide initialisation
+			$slideshow.trigger('slide-init', $items.eq(current));
 		} );
-
-		// custom trigger to notify us of a slide initialisation
-		$slideshow.trigger('slide-init', $items.eq(current));
 		
 	}
 

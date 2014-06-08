@@ -339,6 +339,11 @@ span.cbp-binext:before {
 /* Overlay */
 
 .overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
 	color: #fff;
 	background: rgba(0, 0, 0, .7);
 	z-index: 20;

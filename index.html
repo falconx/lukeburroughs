@@ -19,6 +19,10 @@
 
 			<overlay name="overlay.name" show="overlay.show"></overlay>
 
+			<div data-ng-if="loading">
+				<spinner class="overlay" config="spinnerConfig"></spinner>
+			</div>
+
 		</div>
 
 		<!-- Scripts -->
@@ -31,6 +35,8 @@
 		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-route.js"></script>
 		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-resource.js"></script>
 		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-animate.js"></script>
+
+		<script src="js/lib/spin.min.js"></script>
 
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 		<script src="config.js"></script>
@@ -56,165 +62,80 @@
 				});
 		});
 
-		/**
-		 * Pads a number with preceeding zeroes e.g. 5 becomes 005
-		 */
-		app.filter('padNumber', function() {
-			return function pad( input, length ) {
-				input = input.toString();
-				return input.length < length ? pad("0" + input, length) : input;
-		    };
-		});
+		app.factory('Spinner', function( $rootScope, $timeout ) {
+			var factory = {};
 
-		app.factory('Project', function( $http ) {
-			var factory = {
-					projects: []
-				};
-
-			$http.get('projects.json')
-				.success(function( data ) {
-					angular.forEach(data, function( project ) {
-						// Point slide src to project's asset directory
-						angular.forEach(project.slides, function( slide ) {
-							slide.src = 'projects/' + project.id + '/' + slide.image;
-						});
-
-						// Add project to binded project list
-						factory.projects.push( project );
-					});
+			factory.spin = function() {
+				// Broadcast on next cycle to ensure all our elements have been initialised
+				$timeout(function() {
+					$rootScope.$broadcast('spinner:spin');
 				});
+			};
 
-			factory.get = function( projectId )  {
-				return _.findWhere(factory.projects, { id: projectId });
-			}
+			factory.stop = function() {
+				// Broadcast on next cycle to ensure all our elements have been initialised
+				$timeout(function() {
+					$rootScope.$broadcast('spinner:stop');
+				});
+			};
 
 			return factory;
 		});
 
-		app.directive('slideshow', function( $timeout ) {
+		app.directive('spinner', function() {
 			return {
 				restrict: 'E',
-				templateUrl: 'templates/directives/slideshow.html',
-				scope: {
-					slides: '=',
-					onchange: '&'
-				},
+				scope: true,
 				link: function( scope, element, attrs ) {
-					$timeout(function() {
-						cbpBGSlideshow.init();
-					});
+					scope.spinner = null;
 
-					element.on('slide-init slide-change', function( evt, slide ) {
-						scope.onchange({ slide: slide });
-					});
-				}
-			}
-		});
-
-		app.directive('overlay', function( $window, $timeout, $compile, $http ) {	
-			return {
-				restrict: 'E',
-				templateUrl: 'templates/directives/overlay.html',
-				scope: {
-					name: '=',
-					show: '='
-				},
-				link: function( scope, element, attrs ) {
-					var templatePath = 'templates/overlays/',
-						templateMap = {
-							build: 'build.html',
-							contact: 'contact.html',
-							manifesto: 'manifesto.html'
-						};
-
-					scope.show = angular.isDefined(scope.show) ? scope.$eval(scope.show) : false;
-
-					// Load base template with include directive to our mapped template
-					$http.get('templates/directives/overlay.html')
-						.success(function( data ) {
-							element.html( data );
-							$compile( element.contents() )(scope);
-						});
-
-					scope.close = function() {
-						scope.show = false;
-					}
-
-					scope.$watch('name', function( newVal, oldVal ) {
-						if( newVal ) {
-							scope.template = templatePath + templateMap[ newVal ];
-
-							// Bit of a hack to get the animation to work. Hide and re-show the
-							// ng-include content to trigger the animation.
-							scope.show = false;
-							$timeout(function() {
-								scope.show = true;
-
-								$timeout(function() {
-									scope.updateHeight();
-								});
-							});
+					scope.spin = function() {
+						if( scope.spinner ) {
+							scope.spinner.spin( element[0] );
 						}
-					});
+					};
 
-					/**
-					 * Re-calculates and updates the overlays height based on the document
-					 */
-					scope.updateHeight = function() {
-						element.children('.overlay').height( $(document).height() );
-					}
+					scope.$watch(attrs.config, function( config ) {
+						scope.stop();
+						scope.spinner = new Spinner( config );
 
-					angular.element( $window ).bind('resize', function( evt ) {
-						if( scope.show ) {
-							scope.updateHeight();
+						scope.spin();
+					}, true);
+
+					scope.stop = function() {
+						if( scope.spinner ) {
+							scope.spinner.stop();
 						}
+					};
+
+					scope.$on('spinner:spin', function() {
+						scope.spin();
+					});
+
+					scope.$on('spinner:stop', function() {
+						scope.stop();
+					});
+
+					scope.$on('$destroy', function() {
+						scope.stop();
+						scope.spinner = null;
 					});
 				}
 			}
 		});
 
-		app.animation('.slide-toggle', function( ANIMATION_TOGGLE_SPEED ) {
-			return { 
-		        addClass: function( el, className, done ) {
-		            el.slideUp( ANIMATION_TOGGLE_SPEED, done );
-		        },
-		        removeClass: function( el, className, done ) {
-		            el.hide().slideDown( ANIMATION_TOGGLE_SPEED, done );
-		        }
-		    };
-		});
-
-		app.directive('toggle', function( DEFAULT_TOGGLE_TEXT, DEFAULT_TOGGLE_OPEN ) {
-			return {
-				restrict: 'E',
-				transclude: true,
-				scope: {
-					open: '=isOpen',
-					textColour: '='
-				},
-				templateUrl: 'templates/directives/toggle.html',
-				link: function( scope, element, attrs ) {
-					scope.isOpen = angular.isDefined(attrs.open) ? scope.$eval(attrs.open) : DEFAULT_TOGGLE_OPEN;
-
-					// Set open and closed toggle label text
-					scope.textOpen = (attrs.textOpen) ? attrs.textOpen : DEFAULT_TOGGLE_TEXT.open;
-					scope.textClose = (attrs.textClose) ? attrs.textClose : DEFAULT_TOGGLE_TEXT.close;
-					scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
-
-					scope.toggle = function() {
-						scope.isOpen = !scope.isOpen;
-					}
-
-					scope.$watch('isOpen', function( newVal, oldVal ) {
-						scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
-					});
-				}
-			}
-		});
-
-		app.controller('mainController', function( $scope, Project, HOMEPAGE ) {
+		app.controller('mainController', function( $scope, $rootScope, $timeout, $animate, Project, HOMEPAGE, SPINNER_DEFAULTS ) {
 			$scope.projects = Project.projects;
 			$scope.slides = HOMEPAGE.slides;
+			$scope.spinnerConfig = SPINNER_DEFAULTS;
+
+			// Turn off custom animation until our app is ready
+			$rootScope.enableAnimations = false;
+
+			// Enable custom animation once our content is loaded
+			$scope.$on('$viewContentLoaded', function() {
+				$rootScope.enableAnimations = true;
+			});
 
 			// Reset colours upon route change
 			$scope.$on('$routeChangeSuccess', function( evt, current, previous ) {
@@ -242,6 +163,194 @@
 					};
 				});
 			});
+
+			// Display loading overlay background based on spinner state
+
+			$scope.$on('spinner:spin', function() {
+				$scope.loading = true;
+			});
+
+			$scope.$on('spinner:stop', function() {
+				$scope.loading = false;
+			});
+		});
+
+		/**
+		 * Pads a number with preceeding zeroes e.g. 5 becomes 005
+		 */
+		app.filter('padNumber', function() {
+			return function pad( input, length ) {
+				input = input.toString();
+				return input.length < length ? pad("0" + input, length) : input;
+		    };
+		});
+
+		/**
+		 * jQuery wrapped slipe up/down animation
+		 */
+		app.animation('.slide-toggle', function( $rootScope, ANIMATION_TOGGLE_SPEED ) {
+			return {
+				addClass: function( el, className, done ) {
+					if( $rootScope.enableAnimations ) {
+						el.show().slideUp( ANIMATION_TOGGLE_SPEED, done );
+					} else {
+						el.hide();
+					}
+				},
+				removeClass: function( el, className, done ) {
+					if( $rootScope.enableAnimations ) {
+						el.hide().slideDown( ANIMATION_TOGGLE_SPEED, done );
+					} else {
+						el.show();
+					}
+				}
+			};
+		});
+
+		app.factory('Project', function( $http, Spinner ) {
+			var factory = {
+					projects: []
+				};
+
+			Spinner.spin();
+
+			$http.get('projects.json')
+				.success(function( data ) {
+					angular.forEach(data, function( project ) {
+						// Point slide src to project's asset directory
+						angular.forEach(project.slides, function( slide ) {
+							slide.src = 'projects/' + project.id + '/' + slide.image;
+						});
+
+						// Add project to binded project list
+						factory.projects.push( project );
+					});
+
+					Spinner.stop();
+				});
+
+			factory.get = function( projectId )  {
+				return _.findWhere(factory.projects, { id: projectId });
+			}
+
+			return factory;
+		});
+
+		app.directive('slideshow', function( $timeout, Spinner ) {
+			return {
+				restrict: 'E',
+				templateUrl: 'templates/directives/slideshow.html',
+				scope: {
+					slides: '=',
+					onchange: '&'
+				},
+				link: function( scope, element, attrs ) {
+					Spinner.spin();
+
+					$timeout(function() {
+						cbpBGSlideshow.init();
+					});
+
+					element.on('slide-init', function( evt ) {
+						Spinner.stop();
+					});
+
+					element.on('slide-init slide-change', function( evt, slide ) {
+						scope.onchange({ slide: slide });
+					});
+				}
+			}
+		});
+
+		app.directive('overlay', function( $window, $timeout, $compile, $http ) {	
+			return {
+				restrict: 'E',
+				templateUrl: 'templates/directives/overlay.html',
+				scope: {
+					name: '=',
+					show: '='
+				},
+				link: function( scope, element, attrs ) {
+					var templatePath = 'templates/overlays/',
+						templateMap = {
+							build: 'build.html',
+							contact: 'contact.html',
+							manifesto: 'manifesto.html'
+						};
+
+					scope.show = angular.isDefined( scope.show ) ? scope.$eval( scope.show ) : false;
+
+					// Load base template with include directive to our mapped template
+					$http.get('templates/directives/overlay.html')
+						.success(function( data ) {
+							element.html( data );
+							$compile( element.contents() )(scope);
+						});
+
+					scope.close = function() {
+						scope.show = false;
+					}
+
+					scope.$watch('name', function( newVal, oldVal ) {
+						if( newVal ) {
+							scope.template = templatePath + templateMap[ newVal ];
+
+							// Bit of a hack to get the animation to work on tab change. Hide and re-show the
+							// ng-include content to trigger the animation.
+							scope.show = false;
+							$timeout(function() {
+								scope.show = true;
+
+								// Wait until the overlay is visible before we measure the document height
+								$timeout(function() {
+									scope.updateHeight();
+								});
+							});
+						}
+					});
+
+					/**
+					 * Re-calculates and updates the overlays height based on the document
+					 */
+					scope.updateHeight = function() {
+						element.children('.overlay').height( $(document).height() );
+					}
+
+					angular.element( $window ).bind('resize', function() {
+						if( scope.show ) {
+							scope.updateHeight();
+						}
+					});
+				}
+			}
+		});
+
+		app.directive('toggle', function( DEFAULT_TOGGLE_TEXT, DEFAULT_TOGGLE_OPEN ) {
+			return {
+				restrict: 'E',
+				transclude: true,
+				scope: {
+					open: '=isOpen',
+					textColour: '='
+				},
+				templateUrl: 'templates/directives/toggle.html',
+				link: function( scope, element, attrs ) {
+					scope.isOpen = angular.isDefined( attrs.open ) ? attrs.open : DEFAULT_TOGGLE_OPEN;
+
+					// Set open and closed toggle label text
+					scope.textOpen = (attrs.textOpen) ? attrs.textOpen : DEFAULT_TOGGLE_TEXT.open;
+					scope.textClose = (attrs.textClose) ? attrs.textClose : DEFAULT_TOGGLE_TEXT.close;
+					scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
+
+					scope.toggle = function() {
+						scope.isOpen = !scope.isOpen;
+					}
+
+					scope.$watch('isOpen', function( newVal, oldVal ) {
+						scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
+					});
+				}
+			}
 		});
 
 		app.controller('navController', function( $scope, $rootScope, $routeParams, Project ) {
