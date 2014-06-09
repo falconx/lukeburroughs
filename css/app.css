@@ -51,6 +51,7 @@ h1 {
 
 header {
 	margin: 25px;
+	margin-bottom: 8px;
 	font-size: 2.5em;
 }
 
@@ -111,9 +112,9 @@ blockquote {
 .expand:after {
 	content: '2';
 	display: inline-block;
-	height: 16px;
 	color: #ff2a7c;
 	font-family: 'make';
+	height: 13px;
 	line-height: 0;
 	font-size: 1.2em;
 	position: relative;
@@ -437,24 +438,26 @@ span.cbp-binext:before {
 #primary > ul > li > ul {
 	font-family: 'consolasregular', sans-serif;
 	font-size: 0.4em;
-	max-width: 500px;
+	width: 650px;
+	max-width: 100%;
 }
 
 #primary ul ul sup {
 	top: 2px;
+	color: #ff2a7c;
 	font-size: 0.6em;
 	margin-right: 5px;
 }
 
 #primary ul ul li {
 	display: inline-block;
-	margin-right: 8px;
 	line-height: 1.3;
 	white-space: nowrap;
 }
 
 #primary ul ul li a {
 	line-height: 0.3;
+	margin-right: 8px;
 }
 
 #primary ul ul li a:after {
@@ -584,22 +587,24 @@ span.cbp-binext:before {
 
 }
 
+@media (max-width: 900px) {
+
+	.page-project,
+	.page-project > .content {
+		position: static;
+		margin-top: 0;
+	}
+
+}
+
 @media (max-width: 800px) {
 
 	#secondary {
 		text-align: right;
 	}
 
-	#secondary li {
-		display: block;
-		margin: 0;
-		line-height: 1.3;
-	}
-
-	.page-project,
-	.page-project > .content {
-		position: static;
-		margin-top: 0;
+	#secondary {
+		display: none;
 	}
 
 	.page-project .cbp-bislideshow {
@@ -615,6 +620,10 @@ span.cbp-binext:before {
 		-webkit-background-size: 180%;
 		-moz-background-size: 180%;
 		background-size: 180%;
+	}
+
+	.page-project > .content {
+		width: 400px;
 	}
 
 }
@@ -651,10 +660,6 @@ span.cbp-binext:before {
 		font-size: 1.3em;
 		line-height: 1.1;
 		margin-bottom: 7px;
-	}
-
-	#secondary {
-		display: none;
 	}
 
 	.expand:after {

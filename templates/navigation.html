@@ -9,7 +9,7 @@
 						<sup>{{ $index + 1 | padNumber: 3 }}</sup>{{ project.name }}
 					</a>
 					<div class="project" data-ng-show="$parent.project === project && !$parent.listAllProjects">
-						<sup>{{ $index + 1 | padNumber: 3 }}</sup>{{ project.name }}
+						<sup>{{ $index + 1 | padNumber: 3 }}</sup><span>{{ project.name }}</span>
 						<a href="javascript:;" class="arrow-left" title="Back to projects" data-ng-click="$parent.listAllProjects = true" data-ng-style="{ 'color': colours.color }">L</a>
 						<div>{{ project.subtitle }}</div>
 					</div>

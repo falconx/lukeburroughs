@@ -1,14 +1,14 @@
 <h1 class="hide-text">Get In Touch</h1>
 <div>
-	<form>
+	<form data-ng-controller="contactFormController">
 		<div class="column first">
-			<input type="text" name="name" placeholder="What's Your Name?" />
+			<input type="text" name="name" placeholder="What's Your Name?" data-ng-model="contactName" />
 		</div>
 		<div class="column">
-			<input type="text" name="contact" placeholder="How Can I Reach You?" />
+			<input type="text" name="contact" placeholder="How Can I Reach You?" data-ng-model="contactDetails" />
 		</div>
 		<div class="message">
-			<textarea name="message" placeholder="hello"></textarea>
+			<textarea name="message" placeholder="hello" data-ng-model="contactMessage"></textarea>
 		</div>
 		<span class="submit">
 			<input type="submit" value="Send" />
