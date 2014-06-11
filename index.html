@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0"> 
     	<title>Luke Burroughs Portfolio</title>
-    	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+    	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="js/lib/background-slideshow/css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/ng-animate.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
@@ -20,40 +20,79 @@
 			<overlay name="overlay.name" show="overlay.show"></overlay>
 
 			<div data-ng-if="loading">
-				<spinner class="overlay" config="spinnerConfig"></spinner>
+				<spinner class="overlay loading" config="spinnerConfig"></spinner>
 			</div>
 
 		</div>
 
 		<!-- Scripts -->
 		<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
-		<script src="js/lib/jquery.mobile.custom.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 		<script src="js/lib/modernizr.custom.js"></script>
+		<script src="js/lib/spin.min.js"></script>
+		
 		<script src="js/lib/background-slideshow/js/jquery.imagesloaded.min.js"></script>
 		<script src="js/lib/background-slideshow/js/cbpBGSlideshow.js"></script>
 
 		<script src="https://code.angularjs.org/1.2.0-rc.2/angular.js"></script>
 		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-route.js"></script>
-		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-resource.js"></script>
 		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-animate.js"></script>
-
-		<script src="js/lib/spin.min.js"></script>
-
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-		<script src="config.js"></script>
-
+		<script src="https://code.angularjs.org/1.2.0-rc.2/angular-touch.js"></script>
+		<script src="js/lib/ui-utils-0.1.1/ui-utils.js"></script>
+		
 		<script>
 
-		// TODO: Favicon
+		var app = angular.module('lukeburroughs', ['ngRoute', 'ngAnimate', 'ngTouch']);
 
-		// TODO: Swap jQuery UI for Angular UI Project to replace keypress and swipe guestures
-		// TODO: Handle overlay key bindings
-		// TODO: Contact form model validation
-		// TODO: Navigation on top of loading overlay
-
-		// TODO: Refactor app config http://stackoverflow.com/questions/17456989/storing-application-configuration-settings-in-angularjs
-
-		var app = angular.module('lukeburroughs', ['ngRoute', 'ngResource', 'ngAnimate', 'config']);
+		app.constant('AppConfig', {
+			'homepage': {
+				'slides': [{
+					'src': 'images/homepage/rewirebg.jpg',
+					'alt': 'Re-wire',
+					'class': 'overlay-rewire'
+				},
+				{
+					'src': 'images/homepage/remixbg.jpg',
+					'alt': 'Re-mix',
+					'class': 'overlay-remix'
+				}]
+			},
+			'email_address': 'luke.burroughs@btinternet.com',
+			'animation': {
+				'toggle_speed': 500
+			},
+			'defaults': {
+				'toggle_open': false,
+				'spinner_config': {
+					'lines': 13, // The number of lines to draw
+					'length': 0, // The length of each line
+					'width': 5, // The line thickness
+					'radius': 18, // The radius of the inner circle
+					'corners': 0.9, // Corner roundness (0..1)
+					'rotate': 0, // The rotation offset
+					'direction': 1, // 1: clockwise, -1: counterclockwise
+					'color': '#ff2a7c', // #rgb or #rrggbb or array of colors
+					'speed': 1.1, // Rounds per second
+					'trail': 59, // Afterglow percentage
+					'shadow': false, // Whether to render a shadow
+					'hwaccel': false, // Whether to use hardware acceleration
+					'className': 'spinner', // The CSS class to assign to the spinner
+					'zIndex': 2e9, // The z-index (defaults to 2000000000)
+					'top': '50%', // Top position relative to parent
+					'left': '50%' // Left position relative to parent
+				}
+			},
+			'translations': {
+				'toggle_text': {
+					'open': 'Show Info',
+					'close': 'Hide Info'
+				},
+				'contact_form': {
+					'message_missing': 'Missing something?',
+					'message_placeholder': 'hello'
+				}
+			}
+		});
 
 		/**
 		 * Routing
@@ -92,24 +131,6 @@
 			return factory;
 		});
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		app.factory('Overlay', function( $rootScope ) {
-			return {
-
-				show: function() {
-					$rootScope.$broadcast('overlay:show');
-				},
-
-				hide: function() {
-					$rootScope.$broadcast('overlay:hide');
-				}
-
-			);
-		});
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 		app.factory('Project', function( $http, Spinner ) {
 			var factory = {
 					projects: []
@@ -137,10 +158,6 @@
 			}
 
 			return factory;
-		});
-
-		app.controller('contactFormController', function( $scope ) {
-			// 
 		});
 
 		app.directive('spinner', function() {
@@ -185,10 +202,199 @@
 			}
 		});
 
-		app.controller('mainController', function( $scope, $rootScope, $timeout, $animate, Project, HOMEPAGE, SPINNER_DEFAULTS ) {
+		/**
+		 * Pads a number with preceeding zeroes e.g. 5 becomes 005
+		 */
+		app.filter('padNumber', function() {
+			return function pad( input, length ) {
+				input = input.toString();
+				return input.length < length ? pad("0" + input, length) : input;
+		    };
+		});
+
+		/**
+		 * jQuery wrapped slipe up/down animation
+		 */
+		app.animation('.slide-toggle', function( $rootScope, AppConfig ) {
+			return {
+				addClass: function( el, className, done ) {
+					if( $rootScope.enableAnimations ) {
+						el.show().slideUp( AppConfig.animation.toggle_speed, done );
+					} else {
+						el.hide();
+					}
+				},
+				removeClass: function( el, className, done ) {
+					if( $rootScope.enableAnimations ) {
+						el.hide().slideDown( AppConfig.animation.toggle_speed, done );
+					} else {
+						el.show();
+					}
+				}
+			};
+		});
+
+		app.directive('slideshow', function( $window, $timeout, $swipe, Spinner ) {
+			return {
+				restrict: 'E',
+				templateUrl: 'templates/directives/slideshow.html',
+				scope: {
+					slides: '=',
+					onchange: '&'
+				},
+				link: function( scope, element, attrs ) {
+					Spinner.spin();
+
+					$timeout(function() {
+						cbpBGSlideshow.init();
+					});
+
+					element.on('slide-init', function( evt ) {
+						Spinner.stop();
+					});
+
+					element.on('slide-init slide-change', function( evt, slide ) {
+						scope.onchange({ slide: slide });
+					});
+
+					$swipe.bind(element, {
+						'start': function( coords ) {
+							start = coords;
+						},
+						'end': function( coords ) {
+							var delta = coords.x - start.x;
+
+							// TODO: Don't trigger slide if overlay is visible
+
+							if( delta < 0 ) {
+								$('.cbp-biprev', element).trigger('click');
+							} else if( delta > 0 ) {
+								$('.cbp-binext', element).trigger('click');
+							}
+						}
+					});
+
+					angular.element( $window ).on('keydown', function() {
+
+						// TODO: Don't trigger slide if overlay is visible
+
+						switch( event.keyCode ) {
+							// Left
+							case 37:
+								$('.cbp-biprev', element).trigger('click');
+								break;
+
+							// Right
+							case 39:
+								$('.cbp-binext', element).trigger('click');
+								break;
+
+							// Escape
+							case 27:
+								// TODO: Remove overlay
+								break;
+						}
+					});
+				}
+			}
+		});
+
+		app.directive('overlay', function( $window, $timeout, $compile, $http ) {	
+			return {
+				restrict: 'E',
+				templateUrl: 'templates/directives/overlay.html',
+				scope: {
+					name: '=',
+					show: '='
+				},
+				link: function( scope, element, attrs ) {
+					var templatePath = 'templates/overlays/',
+						templateMap = {
+							build: 'build.html',
+							contact: 'contact.html',
+							manifesto: 'manifesto.html'
+						};
+
+					scope.show = angular.isDefined( scope.show ) ? scope.$eval( scope.show ) : false;
+
+					// TODO: Replace this with uiInclude ?
+					// Load base template with include directive to our mapped template
+					$http.get('templates/directives/overlay.html')
+						.success(function( data ) {
+							element.html( data );
+							$compile( element.contents() )(scope);
+						});
+
+					scope.close = function() {
+						scope.show = false;
+					}
+
+					scope.$watch('name', function( newVal, oldVal ) {
+						if( newVal ) {
+							scope.template = templatePath + templateMap[ newVal ];
+
+							// Bit of a hack to get the animation to work on tab change. Hide and re-show the
+							// ng-include content to trigger the animation.
+							scope.show = false;
+							$timeout(function() {
+								scope.show = true;
+
+								// Wait until the overlay is visible before we measure the document height
+								$timeout(function() {
+									scope.updateHeight();
+								});
+							});
+						}
+					});
+
+					/**
+					 * Re-calculates and updates the overlays height based on the document
+					 */
+					scope.updateHeight = function() {
+						element.children('.overlay').height( $(document).height() );
+					}
+
+					angular.element( $window ).on('resize', function() {
+						if( scope.show ) {
+							scope.updateHeight();
+						}
+					});
+				}
+			}
+		});
+
+		app.directive('toggle', function( AppConfig ) {
+			return {
+				restrict: 'E',
+				transclude: true,
+				scope: {
+					open: '=isOpen',
+					textColour: '='
+				},
+				templateUrl: 'templates/directives/toggle.html',
+				link: function( scope, element, attrs ) {
+					scope.isOpen = angular.isDefined( attrs.open ) ? attrs.open : AppConfig.defaults.toggle_open;
+
+					// Set open and closed toggle label text
+					scope.textOpen = (attrs.textOpen) ? attrs.textOpen : AppConfig.translations.open;
+					scope.textClose = (attrs.textClose) ? attrs.textClose : AppConfig.translations.close;
+					scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
+
+					scope.toggle = function() {
+						scope.isOpen = !scope.isOpen;
+					}
+
+					scope.$watch('isOpen', function( newVal, oldVal ) {
+						scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
+					});
+				}
+			}
+		});
+
+		app.controller('mainController', function( $scope, $rootScope, $timeout, $animate, Project, AppConfig ) {
 			$scope.projects = Project.projects;
-			$scope.slides = HOMEPAGE.slides;
-			$scope.spinnerConfig = SPINNER_DEFAULTS;
+			$scope.slides = AppConfig.homepage.slides;
+			$scope.spinnerConfig = AppConfig.defaults.spinner_config;
 
 			// Turn off custom animation until our app is ready
 			$rootScope.enableAnimations = false;
@@ -236,187 +442,24 @@
 			});
 		});
 
-		/**
-		 * Pads a number with preceeding zeroes e.g. 5 becomes 005
-		 */
-		app.filter('padNumber', function() {
-			return function pad( input, length ) {
-				input = input.toString();
-				return input.length < length ? pad("0" + input, length) : input;
-		    };
-		});
-
-		/**
-		 * jQuery wrapped slipe up/down animation
-		 */
-		app.animation('.slide-toggle', function( $rootScope, ANIMATION_TOGGLE_SPEED ) {
-			return {
-				addClass: function( el, className, done ) {
-					if( $rootScope.enableAnimations ) {
-						el.show().slideUp( ANIMATION_TOGGLE_SPEED, done );
-					} else {
-						el.hide();
-					}
-				},
-				removeClass: function( el, className, done ) {
-					if( $rootScope.enableAnimations ) {
-						el.hide().slideDown( ANIMATION_TOGGLE_SPEED, done );
-					} else {
-						el.show();
-					}
-				}
+		app.controller('contactFormController', function( $scope, $window, AppConfig ) {
+			$scope.contact = {
+				name: '',
+				details: '',
+				message: ''
 			};
-		});
 
-		app.directive('slideshow', function( $window, $timeout, Spinner ) {
-			return {
-				restrict: 'E',
-				templateUrl: 'templates/directives/slideshow.html',
-				scope: {
-					slides: '=',
-					onchange: '&'
-				},
-				link: function( scope, element, attrs ) {
-					Spinner.spin();
+			$scope.messagePlaceholder = AppConfig.translations.contact_form.message_placeholder;
 
-					$timeout(function() {
-						cbpBGSlideshow.init();
-					});
-
-					element.on('slide-init', function( evt ) {
-						Spinner.stop();
-					});
-
-					element.on('slide-init slide-change', function( evt, slide ) {
-						scope.onchange({ slide: slide });
-					});
-
-					// TODO: Handle overlay key bindings
-					angular.element( $window ).on('keydown', function() {
-						switch( event.keyCode ) {
-							// Left
-							case 37:
-								// if( !$('.overlay').length ) {
-									$('.cbp-biprev', element).trigger('click');
-								// }
-								break;
-
-							// Right
-							case 39:
-								// if( !$('.overlay').length ) {
-									$('.cbp-binext', element).trigger('click');
-								// }
-								break;
-
-							// Escape
-							case 27:
-								// $('.overlay').remove();
-								break;
-						}
-					});
-
-					angular.element( $window ).on('swipeleft', function() {
-						// if( !$('.overlay').length ) {
-							$('.cbp-biprev', element).trigger('click');
-						// }
-					});
-
-					angular.element( $window ).on('swiperight', function() {
-						// if( !$('.overlay').length ) {
-							$('.cbp-binext', element).trigger('click');
-						// }
-					});
-				}
-			}
-		});
-
-		app.directive('overlay', function( $window, $timeout, $compile, $http ) {	
-			return {
-				restrict: 'E',
-				templateUrl: 'templates/directives/overlay.html',
-				scope: {
-					name: '=',
-					show: '='
-				},
-				link: function( scope, element, attrs ) {
-					var templatePath = 'templates/overlays/',
-						templateMap = {
-							build: 'build.html',
-							contact: 'contact.html',
-							manifesto: 'manifesto.html'
-						};
-
-					scope.show = angular.isDefined( scope.show ) ? scope.$eval( scope.show ) : false;
-
-					// Load base template with include directive to our mapped template
-					$http.get('templates/directives/overlay.html')
-						.success(function( data ) {
-							element.html( data );
-							$compile( element.contents() )(scope);
-						});
-
-					scope.close = function() {
-						scope.show = false;
+			$scope.send = function( contact ) {
+				if( contact.message !== AppConfig.translations.contact_form.message_missing ) {
+					if( !contact.message ) {
+						contact.message = AppConfig.translations.contact_form.message_missing;
+					} else if( $scope.contactForm.$valid ) {
+						// Open email client with composed message
+						var body = "My name is " + contact.name + ", you can contact me back at " + contact.details + "%0D%0A%0D%0A" + contact.message.split('\n').join("%0D%0A");
+						$window.open('mailto:' + AppConfig.email_address + '?body=' + body, '_blank');
 					}
-
-					scope.$watch('name', function( newVal, oldVal ) {
-						if( newVal ) {
-							scope.template = templatePath + templateMap[ newVal ];
-
-							// Bit of a hack to get the animation to work on tab change. Hide and re-show the
-							// ng-include content to trigger the animation.
-							scope.show = false;
-							$timeout(function() {
-								scope.show = true;
-
-								// Wait until the overlay is visible before we measure the document height
-								$timeout(function() {
-									scope.updateHeight();
-								});
-							});
-						}
-					});
-
-					/**
-					 * Re-calculates and updates the overlays height based on the document
-					 */
-					scope.updateHeight = function() {
-						element.children('.overlay').height( $(document).height() );
-					}
-
-					angular.element( $window ).on('resize', function() {
-						if( scope.show ) {
-							scope.updateHeight();
-						}
-					});
-				}
-			}
-		});
-
-		app.directive('toggle', function( DEFAULT_TOGGLE_TEXT, DEFAULT_TOGGLE_OPEN ) {
-			return {
-				restrict: 'E',
-				transclude: true,
-				scope: {
-					open: '=isOpen',
-					textColour: '='
-				},
-				templateUrl: 'templates/directives/toggle.html',
-				link: function( scope, element, attrs ) {
-					scope.isOpen = angular.isDefined( attrs.open ) ? attrs.open : DEFAULT_TOGGLE_OPEN;
-
-					// Set open and closed toggle label text
-					scope.textOpen = (attrs.textOpen) ? attrs.textOpen : DEFAULT_TOGGLE_TEXT.open;
-					scope.textClose = (attrs.textClose) ? attrs.textClose : DEFAULT_TOGGLE_TEXT.close;
-					scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
-
-					scope.toggle = function() {
-						scope.isOpen = !scope.isOpen;
-					}
-
-					scope.$watch('isOpen', function( newVal, oldVal ) {
-						scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
-					});
 				}
 			}
 		});

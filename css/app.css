@@ -192,7 +192,7 @@ textarea {
 	background: none;
 }
 
-.error {
+.ng-invalid {
 	border-color: #fbfa4e !important;
 }
 
@@ -258,7 +258,7 @@ h2 {
 .page-contact .column {
 	font-family: 'consolasregular', sans-serif;
 	float: left;
-	width: 25%;
+	width: 26%;
 	margin-right: 3%;
 }
 
@@ -320,7 +320,7 @@ h2 {
 	left: 0;
 	width: 100%;
 	margin: 0;
-	z-index: 20;
+	z-index: 5;
 }
 
 span.cbp-biprev:before {
@@ -348,6 +348,10 @@ span.cbp-binext:before {
 	color: #fff;
 	background: rgba(0, 0, 0, .7);
 	z-index: 20;
+}
+
+.overlay.loading {
+	z-index: 5;
 }
 
 .overlay .close {
