@@ -196,26 +196,6 @@ textarea {
 	border-color: #fbfa4e !important;
 }
 
-/* No JS fallback */
-
-.nojs, .js #nojs-message {
-	display: none;
-}
-
-.js, #nojs-message {
-	display: inherit;
-}
-
-.nojs {
-	font-family: 'akzidenz-grotesk-medium';
-	background: #9bb3c4;
-}
-
-#nojs-message {
-	text-align: center;
-	margin: 50px auto;
-}
-
 /* Manifesto */
 
 h2 {

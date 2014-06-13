@@ -42,6 +42,8 @@
 		
 		<script>
 
+		// TODO: Escape key binding to remove overlay
+
 		var app = angular.module('lukeburroughs', ['ngRoute', 'ngAnimate', 'ngTouch']);
 
 		app.constant('AppConfig', {
@@ -136,6 +138,7 @@
 					projects: []
 				};
 
+			// Show spinner until we have fetched our projects
 			Spinner.spin();
 
 			$http.get('projects.json')
@@ -174,9 +177,7 @@
 					};
 
 					scope.$watch(attrs.config, function( config ) {
-						scope.stop();
 						scope.spinner = new Spinner( config );
-
 						scope.spin();
 					}, true);
 
@@ -264,8 +265,6 @@
 						'end': function( coords ) {
 							var delta = coords.x - start.x;
 
-							// TODO: Don't trigger slide if overlay is visible
-
 							if( delta < 0 ) {
 								$('.cbp-biprev', element).trigger('click');
 							} else if( delta > 0 ) {
@@ -275,9 +274,6 @@
 					});
 
 					angular.element( $window ).on('keydown', function() {
-
-						// TODO: Don't trigger slide if overlay is visible
-
 						switch( event.keyCode ) {
 							// Left
 							case 37:
@@ -299,7 +295,7 @@
 			}
 		});
 
-		app.directive('overlay', function( $window, $timeout, $compile, $http ) {	
+		app.directive('overlay', function( $window, $timeout, $compile, $http, Spinner ) {	
 			return {
 				restrict: 'E',
 				templateUrl: 'templates/directives/overlay.html',
@@ -315,9 +311,8 @@
 							manifesto: 'manifesto.html'
 						};
 
-					scope.show = angular.isDefined( scope.show ) ? scope.$eval( scope.show ) : false;
+					scope.show = angular.isDefined( scope.show ) ? scope.show : false;
 
-					// TODO: Replace this with uiInclude ?
 					// Load base template with include directive to our mapped template
 					$http.get('templates/directives/overlay.html')
 						.success(function( data ) {
@@ -336,12 +331,17 @@
 							// Bit of a hack to get the animation to work on tab change. Hide and re-show the
 							// ng-include content to trigger the animation.
 							scope.show = false;
+
+							// Show spinner until new content is loaded
+							Spinner.spin();
+
 							$timeout(function() {
 								scope.show = true;
 
 								// Wait until the overlay is visible before we measure the document height
 								$timeout(function() {
 									scope.updateHeight();
+									Spinner.stop();
 								});
 							});
 						}
@@ -376,8 +376,8 @@
 					scope.isOpen = angular.isDefined( attrs.open ) ? attrs.open : AppConfig.defaults.toggle_open;
 
 					// Set open and closed toggle label text
-					scope.textOpen = (attrs.textOpen) ? attrs.textOpen : AppConfig.translations.open;
-					scope.textClose = (attrs.textClose) ? attrs.textClose : AppConfig.translations.close;
+					scope.textOpen = (attrs.textOpen) ? attrs.textOpen : AppConfig.translations.toggle_text.open;
+					scope.textClose = (attrs.textClose) ? attrs.textClose : AppConfig.translations.toggle_text.close;
 					scope.text = (scope.isOpen) ? scope.textClose : scope.textOpen;
 
 					scope.toggle = function() {
