@@ -1,0 +1,668 @@
+[
+	{
+		"id": "damaged_file",
+		"name": "The Damaged File",
+		"subtitle": "We Are Pirates",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#fff",
+				"background": "#c4c5ca"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#fff",
+				"background": "#c4c5ca"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#fff",
+				"background": "#c3c4c9"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#fff",
+				"background": "#c4c5ca"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#c7cad0",
+				"background": "#fff"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#c7cad0",
+				"background": "#fff"
+			},
+			{
+				"image": "007.jpg",
+				"colour": "#c7cad0",
+				"background": "#fff"
+			}
+		]
+	},
+	{
+		"id": "never_let_the_truth",
+		"name": "Never Let Truth",
+		"subtitle": "Spoil A Good Story",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#5e5e6b",
+				"background": "#303136"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#5e5e6b",
+				"background": "#303136"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#5e5e6b",
+				"background": "#303136"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#5e5e6b",
+				"background": "#303136"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#5e5e6b",
+				"background": "#303136"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#5e5e6b",
+				"background": "#303136"
+			},
+			{
+				"image": "007.jpg",
+				"colour": "#5e5e6b",
+				"background": "#303136"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#5e5e6b",
+				"background": "#303136"
+			},
+			{
+				"image": "009.jpg",
+				"colour": "#fff",
+				"background": "#cdced0"
+			},
+			{
+				"image": "010.jpg",
+				"colour": "#fff",
+				"background": "#cdced0"
+			},
+			{
+				"image": "011.jpg",
+				"colour": "#fff",
+				"background": "#8a8b94"
+			},
+			{
+				"image": "012.jpg",
+				"colour": "#fff",
+				"background": "#dddee2"
+			},
+			{
+				"image": "013.jpg",
+				"colour": "#fff",
+				"background": "#dbdbe3"
+			},
+			{
+				"image": "014.jpg",
+				"colour": "#fff",
+				"background": "#e9ecf0"
+			},
+			{
+				"image": "015.jpg",
+				"colour": "#5e5e6b",
+				"background": "#25252d"
+			},
+			{
+				"image": "016.jpg",
+				"colour": "#5e5e6b",
+				"background": "#25252d"
+			},
+			{
+				"image": "017.jpg",
+				"colour": "#5e5e6b",
+				"background": "#25252d"
+			},
+			{
+				"image": "018.jpg",
+				"colour": "#5e5e6b",
+				"background": "#25252d"
+			},
+			{
+				"image": "019.jpg",
+				"colour": "#5e5e6b",
+				"background": "#25252d"
+			},
+			{
+				"image": "020.jpg",
+				"colour": "#5e5e6b",
+				"background": "#25252d"
+			}
+		]
+	},
+	{
+		"id": "fictional_newscapes",
+		"name": "Fictional Newscapes",
+		"subtitle": "Subliminal Chaos",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#fff",
+				"background": "#000"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#fff",
+				"background": "#000"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#fff",
+				"background": "#000"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#797784",
+				"background": "#dadadb"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#797784",
+				"background": "#eae8e7"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#797784",
+				"background": "#dbdad9"
+			}
+		]
+	},
+	{
+		"id": "world_that_never_was",
+		"name": "World That Never Was",
+		"subtitle": "Illustration Series",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#5e5e6b",
+				"background": "#2b263d"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#5e5e6b",
+				"background": "#2a263a"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#5e5e6b",
+				"background": "#2a263a"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#5e5e6b",
+				"background": "#2c2c34"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#5e5e6b",
+				"background": "#2c2c34"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#5e5e6b",
+				"background": "#2c2c34"
+			},
+			{
+				"image": "007.jpg",
+				"colour": "#5e5e6b",
+				"background": "#2c2c34"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#5e5e6b",
+				"background": "#141418"
+			},
+			{
+				"image": "009.jpg",
+				"colour": "#5e5e6b",
+				"background": "#141418"
+			},
+			{
+				"image": "010.jpg",
+				"colour": "#5e5e6b",
+				"background": "#141418"
+			},
+			{
+				"image": "011.jpg",
+				"colour": "#5e5e6b",
+				"background": "#141418"
+			}
+		]
+	},
+	{
+		"id": "from_a_distance",
+		"name": "From A Distance",
+		"subtitle": "David Stephenson",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#fff",
+				"background": "#abb0c6"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#fff",
+				"background": "#abb0c6"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#fff",
+				"background": "#17171f"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#fff",
+				"background": "#abb0c6"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#fff",
+				"background": "#abb0c6"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#a3acb2",
+				"background": "#fafbf4"
+			},
+			{
+				"image": "007.jpg",
+				"colour": "#a3acb2",
+				"background": "#f6f8f9"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#fff",
+				"background": "#abb0c5"
+			},
+			{
+				"image": "009.jpg",
+				"colour": "#fff",
+				"background": "#abb0c5"
+			},
+			{
+				"image": "010.jpg",
+				"colour": "#fff",
+				"background": "#abb0c5"
+			},
+			{
+				"image": "011.jpg",
+				"colour": "#fff",
+				"background": "#abb0c5"
+			}
+		]
+	},
+	{
+		"id": "directions",
+		"name": "Directions",
+		"subtitle": "Life & Colour",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#434351",
+				"background": "#151515"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#434351",
+				"background": "#151515"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#434351",
+				"background": "#151515"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#FFF",
+				"background": "#abb0c6"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#FFF",
+				"background": "#abb0c6"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#FFF",
+				"background": "#abb0c6"
+			},
+			{
+				"image": "007.jpg",
+				"colour": "#FFF",
+				"background": "#1e181c"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#FFF",
+				"background": "#1e181c"
+			}
+		]
+	},
+	{
+		"id": "data_damage",
+		"name": "Data Damage",
+		"subtitle": "A Film Piracy Study",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#b2b9c0",
+				"background": "#fcfafc"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#b2b9c0",
+				"background": "#fcfafc"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#b2b9c0",
+				"background": "#fcfafc"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#FFF",
+				"background": "#d3d6df"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#FFF",
+				"background": "#d3d6df"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#FFF",
+				"background": "#d3d6df"
+			},
+			{
+				"image": "007.jpg",
+				"colour": "#FFF",
+				"background": "#d3d6df"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#FFF",
+				"background": "#d3d6df"
+			},
+			{
+				"image": "009.jpg",
+				"colour": "#FFF",
+				"background": "#d3d6df"
+			},
+			{
+				"image": "010.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f8f7fc"
+			},
+			{
+				"image": "011.jpg",
+				"colour": "#fff",
+				"background": "#d3d6df"
+			},
+			{
+				"image": "012.jpg",
+				"colour": "#424250",
+				"background": "#050506"
+			},
+			{
+				"image": "013.jpg",
+				"colour": "#424250",
+				"background": "#050506"
+			},
+			{
+				"image": "014.jpg",
+				"colour": "#424250",
+				"background": "#050506"
+			},
+			{
+				"image": "015.jpg",
+				"colour": "#424250",
+				"background": "#050412"
+			},
+			{
+				"image": "016.jpg",
+				"colour": "#424250",
+				"background": "#050412"
+			},
+			{
+				"image": "017.jpg",
+				"colour": "#424250",
+				"background": "#050506"
+			},
+			{
+				"image": "018.jpg",
+				"colour": "#424250",
+				"background": "#000"
+			},
+			{
+				"image": "019.jpg",
+				"colour": "#424250",
+				"background": "#000"
+			},
+			{
+				"image": "020.jpg",
+				"colour": "#424250",
+				"background": "#000"
+			}
+		]
+	},
+	{
+		"id": "arrivals",
+		"name": "Arrivals Magazine",
+		"subtitle": "Issue 1 @Tokyo",
+		"description": "Collecting stories and images that document people's first time encounters with the city of Tokyo.",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#FFF",
+				"background": "#bebed2"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#FFF",
+				"background": "#b8b8cd"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#FFF",
+				"background": "#abb0c6"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#FFF",
+				"background": "#c2c6d8"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#FFF",
+				"background": "#abb0c6"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#FFF",
+				"background": "#bebed1"
+			},
+			{
+				"image": "007.jpg",
+				"colour": "#FFF",
+				"background": "#acb1c6"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#FFF",
+				"background": "#acb1c6"
+			},
+			{
+				"image": "009.jpg",
+				"colour": "#FFF",
+				"background": "#acb1c6"
+			}
+		]
+	},
+	{
+		"id": "we_know",
+		"name": "We Know",
+		"subtitle": "Surveillance Poster",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#FFF",
+				"background": "#aeb4ca"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#FFF",
+				"background": "#aeb4ca"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#FFF",
+				"background": "#1b1919"
+			}
+		]
+	},
+	{
+		"id": "if_on_a_winters_night",
+		"name": "Italo Calvino",
+		"subtitle": "If On A Winter's Night",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#a3acb2",
+				"background": "#f5f5f5"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#fff",
+				"background": "#0d0f13"
+			},
+			{
+				"image": "007.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "009.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "010.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "011.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "012.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "013.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			},
+			{
+				"image": "014.jpg",
+				"colour": "#c6cdd1",
+				"background": "#30293e"
+			}
+		]
+	},
+	{
+		"id": "roles_we_play",
+		"name": "Roles We Play",
+		"subtitle": "Identity Campaign",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#5e5e6b",
+				"background": "#27272e"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#5e5e6b",
+				"background": "#13131d"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#5e5e6b",
+				"background": "#10101a"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#5e5e6b",
+				"background": "#10101a"
+			}
+		]
+	},
+	{
+		"id": "journeys",
+		"name": "Journeys",
+		"subtitle": "Journeys subtitle",
+		"description": "Description for Project 2",
+		"slides": [
+			{ "image": "001.jpg" },
+			{ "image": "002.jpg" },
+			{ "image": "003.jpg" }
+		],
+		"colour": "#222",
+		"background": "#FFF"
+	}
+]

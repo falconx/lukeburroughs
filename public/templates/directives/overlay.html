@@ -1,0 +1,14 @@
+<div data-ng-show="show" class="page page-{{ name }} overlay">
+	<div class="content">
+	    <div class="overlay-links">
+	    	<a href="javascript:;" data-ng-click="close()" class="close"></a>
+	    	<span data-ng-if="name !== 'contact'">
+				<a href="javascript:;" data-ng-click="$parent.name = 'build'" data-ng-class="{ 'active': $parent.name === 'build' }">Build</a>
+				<a href="javascript:;" data-ng-click="$parent.name = 'manifesto'" data-ng-class="{ 'active': $parent.name === 'manifesto' }">Manifesto</a>
+			</span>
+		</div>
+		<div data-ng-if="show">
+	    	<div data-ng-include="$parent.template" class="animate slide-left"></div>
+	    </div>
+	</div>
+</div>
