@@ -10,25 +10,25 @@ var gulp     = require('gulp'),
     summary  = require('jshint-summary');
 
 var paths = {
-	buildDir: 'dist',
+	buildDir: 'public/dist',
 	assets: [
-		'images/**',
-		'projects/**'
+		'public/images/**',
+		'public/projects/**'
 	],
 	scripts: [
-		'scripts/vendor/modernizr.custom.js',
-		'scripts/vendor/spin.min.js',
-		'scripts/vendor/background-slideshow/js/jquery.imagesloaded.min.js',
-		'scripts/vendor/background-slideshow/js/cbpBGSlideshow.js',
-		'scripts/vendor/ui-utils-0.1.1/ui-utils.js'
-		// 'scripts/app.js'
+		'public/scripts/vendor/modernizr.custom.js',
+		'public/scripts/vendor/spin.min.js',
+		'public/scripts/vendor/background-slideshow/js/jquery.imagesloaded.min.js',
+		'public/scripts/vendor/background-slideshow/js/cbpBGSlideshow.js',
+		'public/scripts/vendor/ui-utils-0.1.1/ui-utils.js'
+		// 'public/scripts/app.js'
 	],
 	stylesheets: [
-		'scripts/vendor/background-slideshow/css/component.css',
-		'css/ng-animate.css',
-		'css/reset.css',
-		'css/fonts.css',
-		'css/app.css'
+		'public/scripts/vendor/background-slideshow/css/component.css',
+		'public/css/ng-animate.css',
+		'public/css/reset.css',
+		'public/css/fonts.css',
+		'public/css/app.css'
 	]
 };
 
