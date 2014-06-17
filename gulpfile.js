@@ -1,4 +1,5 @@
-var gulp     = require('gulp'),
+var server	 = require('./app'),
+	gulp     = require('gulp'),
 	gutil    = require('gulp-util'),
 	clean    = require('gulp-clean'),
 	changed  = require('gulp-changed'),
@@ -32,11 +33,18 @@ var paths = {
 	]
 };
 
-gulp.task('default', ['compress', 'watch']);
+gulp.task('default', ['compress', 'watch'], function() {
+	server.run();
+});
+
+gulp.task('compress', ['scripts', 'assets', 'css'], function() {
+	gutil.log( gutil.colors.green('Files compressed') );
+});
 
 /**
- * Clean out dist
+ * Clean out build directory
  */
+
 gulp.task('clean', function() {  
 	return gulp.src( paths.buildDir, { read: false })
 		.pipe( clean() );
@@ -45,19 +53,19 @@ gulp.task('clean', function() {
 /**
  * Watch for changes
  */
+
 gulp.task('watch', function() {
+	gutil.log( 'gulp:watch task running...' );
+
 	gulp.watch( paths.scripts, ['scripts'] );
 	gulp.watch( paths.assets, ['assets'] );
 	gulp.watch( paths.stylesheets, ['css'] );
 });
 
-gulp.task('compress', ['scripts', 'assets', 'css'], function() {
-	gutil.log( gutil.colors.green('Files compressed') );
-});
-
 /**
  * Lint scripts
  */
+
 gulp.task('lint', function() {
 	gulp.src( 'scripts/app.js' )
 		.pipe(jshint())
@@ -71,17 +79,19 @@ gulp.task('lint', function() {
 /**
  * Minify scripts
  */
+
 gulp.task('scripts', ['lint'], function() {
 	gulp.src( paths.scripts )
 		.pipe( uglify() )
 		.pipe( concat('lukeburroughs.min.js') )
-		.pipe( gulp.dest( paths.buildDir ) )
-		.on('error', gutil.log);	
+		.pipe( gulp.dest( paths.buildDir ) );
 });
 
 /**
  * Minify image assets and maintain file structure by setting base
+ * TODO: PNG's
  */
+
 gulp.task('assets', function() {
 	return gulp.src( paths.assets, { base: '.' } )
 		// Only compress files which have been modified
@@ -92,17 +102,16 @@ gulp.task('assets', function() {
             	removeViewBox: false
             }]
         }))
-        .pipe( gulp.dest( paths.buildDir ) )
-        .on('error', gutil.log);
+        .pipe( gulp.dest( paths.buildDir ) );
 });
 
 /**
  * Minify stylesheets
  */
+
 gulp.task('css', function() {
 	gulp.src( paths.stylesheets )
 		.pipe( cssmin() )
 		.pipe( concat('lukeburroughs.min.css') )
-        .pipe( gulp.dest( paths.buildDir ) )
-        .on('error', gutil.log);
+        .pipe( gulp.dest( paths.buildDir ) );
 });

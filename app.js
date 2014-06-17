@@ -1,16 +1,12 @@
-var express 	 	= require('express'),
-	bodyParser      = require('body-parser'),
-	methodOverride  = require('method-override'),
-	errorHandler    = require('error-handler'),
-	routes		 	= require('./routes'),
-	http		 	= require('http'),
-	path		 	= require('path');
+var express = require('express'),
+	path	= require('path'),
+	gulp    = require('gulp');
 
 var app = module.exports = express();
 var env = process.env.NODE_ENV || 'development';
 
-// TODO: views?
-// TODO: routing vs Angular routing?
+var EXPRESS_PORT = 4000,
+	EXPRESS_ROOT = __dirname;
 
 /**
  * Configuration
@@ -18,31 +14,27 @@ var env = process.env.NODE_ENV || 'development';
 
 app.engine('html', require('ejs').renderFile);
 
-app.set('port', process.env.PORT || 5000);
-// app.set('views', __dirname + '/views');
+app.set('port', process.env.PORT || EXPRESS_PORT);
 app.set('view engine', 'html');
-app.use(bodyParser());
-app.use(methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(logfmt.requestLogger());
-
-// Dev mode
-if( app.get('env') === 'development' ) {
-	// app.use(express.errorHandler());
-}
+app.use(express.static(path.join(EXPRESS_ROOT, 'public')));
 
 /**
- * Routing
+ * Route all traffic to angular directory for further routing
  */
 
-app.get('*', routes.index);
-// app.get('/partials/:name', routes.partials);
-
-/**
- * Run
- */
-
-http.createServer(app).listen(app.get('port'), function() {
-	console.log('Express server listening on port ' + app.get('port'));
+app.get('*', function( req, res ) {
+	res.render('index');
 });
+
+/**
+ * Run server
+ */
+
+module.exports = {
+	run: function() {
+		app.listen(app.get('port'), function() {
+			console.log('Express server listening on port ' + app.get('port'));
+		});
+	}
+};
