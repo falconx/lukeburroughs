@@ -16,11 +16,6 @@ app.set('view engine', 'html');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.errorHandler({
-  dumpExceptions: true,
-  showStack: true
-}));
-
 /**
  * Route all traffic to angular directory for further routing
  */
