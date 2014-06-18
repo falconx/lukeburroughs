@@ -2,10 +2,8 @@ var express = require('express'),
 	  path	  = require('path'),
 	  gulp    = require('gulp');
 
-var app = module.exports = express();
+var app = express();
 var env = process.env.NODE_ENV || 'development';
-
-var EXPRESS_ROOT = __dirname;
 
 /**
  * Configuration
@@ -13,10 +11,15 @@ var EXPRESS_ROOT = __dirname;
 
 app.engine('html', require('ejs').renderFile);
 
-app.set('port', parseInt(process.env.PORT) || 5000);
+app.set('port', parseInt(process.env.PORT, 10) || 5000);
 app.set('view engine', 'html');
 
-app.use(express.static(path.join(EXPRESS_ROOT, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.errorHandler({
+  dumpExceptions: true,
+  showStack: true
+}));
 
 /**
  * Route all traffic to angular directory for further routing
