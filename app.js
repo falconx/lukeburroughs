@@ -1,12 +1,12 @@
 var express = require('express'),
-	path	= require('path'),
-	gulp    = require('gulp');
+	  path	= require('path'),
+	  gulp    = require('gulp');
 
 var app = module.exports = express();
 var env = process.env.NODE_ENV || 'development';
 
-var EXPRESS_PORT = 4000,
-	EXPRESS_ROOT = __dirname;
+var EXPRESS_PORT = 3000,
+	  EXPRESS_ROOT = __dirname;
 
 /**
  * Configuration
