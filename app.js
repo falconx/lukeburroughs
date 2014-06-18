@@ -5,8 +5,7 @@ var express = require('express'),
 var app = module.exports = express();
 var env = process.env.NODE_ENV || 'development';
 
-var EXPRESS_PORT = 5000,
-	  EXPRESS_ROOT = __dirname;
+var EXPRESS_ROOT = __dirname;
 
 /**
  * Configuration
@@ -14,7 +13,7 @@ var EXPRESS_PORT = 5000,
 
 app.engine('html', require('ejs').renderFile);
 
-app.set('port', process.env.PORT || EXPRESS_PORT);
+app.set('port', parseInt(process.env.PORT) || 5000);
 app.set('view engine', 'html');
 
 app.use(express.static(path.join(EXPRESS_ROOT, 'public')));
