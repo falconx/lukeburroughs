@@ -34,7 +34,7 @@ var paths = {
 };
 
 gulp.task('default', ['compress', 'watch'], function() {
-	server.run();
+	// server.run();
 });
 
 gulp.task('compress', ['scripts', 'assets', 'css'], function() {

@@ -11,7 +11,7 @@ var env = process.env.NODE_ENV || 'development';
 
 app.engine('html', require('ejs').renderFile);
 
-app.set('port', parseInt(process.env.PORT, 10) || 5000);
+app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'html');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -28,10 +28,10 @@ app.get('*', function( req, res ) {
  * Run server
  */
 
-module.exports = {
-	run: function() {
+// module.exports = {
+	// run: function() {
 		app.listen(app.get('port'), function() {
 			console.log('Express server listening on port ' + app.get('port'));
 		});
-	}
-};
+	// }
+// };
