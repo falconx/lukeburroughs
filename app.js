@@ -20,9 +20,9 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Route all traffic to angular directory for further routing
  */
 
-app.get('*', function( req, res ) {
-	res.redirect('index');
-});
+// app.get('*', function( req, res ) {
+// 	res.redirect('index');
+// });
 
 /**
  * Run server
