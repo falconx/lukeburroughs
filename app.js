@@ -1,11 +1,11 @@
 var express = require('express'),
-	  path	= require('path'),
+	  path	  = require('path'),
 	  gulp    = require('gulp');
 
 var app = module.exports = express();
 var env = process.env.NODE_ENV || 'development';
 
-var EXPRESS_PORT = 3000,
+var EXPRESS_PORT = 5000,
 	  EXPRESS_ROOT = __dirname;
 
 /**
