@@ -15,6 +15,7 @@ app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'html');
 
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/dist', express.static(path.join(__dirname, 'public', 'dist')));
 
 /**
  * Route all traffic to angular directory for further routing
