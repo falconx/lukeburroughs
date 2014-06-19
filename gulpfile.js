@@ -33,12 +33,14 @@ var paths = {
 	]
 };
 
-gulp.task('default', ['compress', 'watch'], function() {
-	server.run();
-});
+gulp.task('default', ['compress', 'serve', 'watch']);
 
 gulp.task('compress', ['scripts', 'assets', 'css'], function() {
 	gutil.log( gutil.colors.green('Files compressed') );
+});
+
+gulp.task('serve', function() {
+	server.run();
 });
 
 /**
