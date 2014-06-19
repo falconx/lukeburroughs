@@ -1,5 +1,4 @@
-var server	 = require('./app'),
-	gulp     = require('gulp'),
+var gulp     = require('gulp'),
 	gutil    = require('gulp-util'),
 	clean    = require('gulp-clean'),
 	changed  = require('gulp-changed'),
@@ -33,9 +32,7 @@ var paths = {
 	]
 };
 
-gulp.task('default', ['compress', 'watch'], function() {
-	// server.run();
-});
+gulp.task('default', ['compress', 'watch']);
 
 gulp.task('compress', ['scripts', 'assets', 'css'], function() {
 	gutil.log( gutil.colors.green('Files compressed') );
@@ -93,7 +90,7 @@ gulp.task('scripts', ['lint'], function() {
  */
 
 gulp.task('assets', function() {
-	return gulp.src( paths.assets, { base: '.' } )
+	return gulp.src( paths.assets, { base: 'public' } )
 		// Only compress files which have been modified
 		.pipe(changed( paths.buildDir ))
         .pipe(imagemin({
