@@ -20,10 +20,10 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Run server
  */
 
-// module.exports = {
-	// run: function() {
+module.exports = {
+	run: function() {
 		app.listen(app.get('port'), function() {
 			console.log('Express server listening on port ' + app.get('port'));
 		});
-	// }
-// };
+	}
+};

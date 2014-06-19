@@ -1,4 +1,5 @@
-var gulp     = require('gulp'),
+var server   = require('./app'),
+	gulp     = require('gulp'),
 	gutil    = require('gulp-util'),
 	clean    = require('gulp-clean'),
 	changed  = require('gulp-changed'),
@@ -32,7 +33,9 @@ var paths = {
 	]
 };
 
-gulp.task('default', ['compress', 'watch']);
+gulp.task('default', ['compress', 'watch'], function() {
+	server.run();
+});
 
 gulp.task('compress', ['scripts', 'assets', 'css'], function() {
 	gutil.log( gutil.colors.green('Files compressed') );
