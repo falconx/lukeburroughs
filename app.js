@@ -1,13 +1,9 @@
 var express = require('express'),
     path    = require('path'),
-    gulp    = require('gulp');
+	app     = express(),
+	env     = process.env.NODE_ENV || 'development';
 
-var app = express();
-var env = process.env.NODE_ENV || 'development';
-
-/**
- * Configuration
- */
+// Server configuration
 
 app.engine('html', require('ejs').renderFile);
 
@@ -16,9 +12,7 @@ app.set('view engine', 'html');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-/**
- * Run server
- */
+// Export run to be called from Gulp task
 
 module.exports = {
 	run: function() {

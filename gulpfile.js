@@ -22,7 +22,6 @@ var paths = {
 		'public/scripts/vendor/background-slideshow/js/jquery.imagesloaded.min.js',
 		'public/scripts/vendor/background-slideshow/js/cbpBGSlideshow.js',
 		'public/scripts/vendor/ui-utils-0.1.1/ui-utils.js'
-		// 'public/scripts/app.js'
 	],
 	stylesheets: [
 		'public/scripts/vendor/background-slideshow/css/component.css',
