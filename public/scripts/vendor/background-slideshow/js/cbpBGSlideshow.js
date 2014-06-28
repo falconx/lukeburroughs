@@ -49,30 +49,38 @@ var cbpBGSlideshow = (function() {
 		};
 
 		// preload the images
-		$slideshow.imagesLoaded( function() {
-			if( Modernizr.backgroundsize ) {
-				$items.each( function() {
-					var $item = $( this );
-					$item.css( 'background-image', 'url(' + $item.find( 'img' ).attr( 'src' ) + ')' );
-				} );
+		var imgLoad = imagesLoaded( $slideshow );
+
+		var loaded_first = false;
+
+		imgLoad.on('always', function() {
+			if( !loaded_first ) {
+				if( Modernizr.backgroundsize ) {
+					$items.each( function() {
+						var $item = $( this );
+						$item.css( 'background-image', 'url(' + $item.find( 'img' ).attr( 'src' ) + ')' );
+					} );
+				}
+				else {
+					$slideshow.find( 'img' ).show();
+					// for older browsers add fallback here (image size and centering)
+				}
+
+				// show first item
+				$items.eq( current ).css( 'opacity', 1 );
+
+				// initialize/bind the events
+				initEvents();
+
+				// start the slideshow
+				startSlideshow();
+
+				// custom trigger to notify us of a slide initialisation
+				$slideshow.trigger('slide-init', $items.eq(current));
+
+				loaded_first = true;
 			}
-			else {
-				$slideshow.find( 'img' ).show();
-				// for older browsers add fallback here (image size and centering)
-			}
-
-			// show first item
-			$items.eq( current ).css( 'opacity', 1 );
-
-			// initialize/bind the events
-			initEvents();
-
-			// start the slideshow
-			startSlideshow();
-
-			// custom trigger to notify us of a slide initialisation
-			$slideshow.trigger('slide-init', $items.eq(current));
-		} );
+		});
 		
 	}
 
