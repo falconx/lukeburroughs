@@ -3,12 +3,12 @@ var server   = require('./app'),
 	gutil    = require('gulp-util'),
 	clean    = require('gulp-clean'),
 	changed  = require('gulp-changed'),
-    uglify   = require('gulp-uglify'),
-    concat   = require('gulp-concat'),
-    imagemin = require('gulp-imagemin'),
-    cssmin   = require('gulp-cssmin'),
-    jshint   = require('gulp-jshint'),
-    summary  = require('jshint-summary');
+	uglify   = require('gulp-uglify'),
+	concat   = require('gulp-concat'),
+	imagemin = require('gulp-imagemin'),
+	cssmin   = require('gulp-cssmin'),
+	jshint   = require('gulp-jshint'),
+	summary  = require('jshint-summary');
 
 var paths = {
 	buildDir: 'public/dist',
@@ -97,13 +97,13 @@ gulp.task('assets', function() {
 	return gulp.src( paths.assets, { base: 'public' } )
 		// Only compress files which have been modified
 		.pipe(changed( paths.buildDir ))
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{
-            	removeViewBox: false
-            }]
-        }))
-        .pipe( gulp.dest( paths.buildDir ) );
+			.pipe(imagemin({
+				progressive: true,
+				svgoPlugins: [{
+				removeViewBox: false
+			}]
+		}))
+		.pipe( gulp.dest( paths.buildDir ) );
 });
 
 /**
@@ -114,5 +114,5 @@ gulp.task('css', function() {
 	gulp.src( paths.stylesheets )
 		.pipe( cssmin() )
 		.pipe( concat('lukeburroughs.min.css') )
-        .pipe( gulp.dest( paths.buildDir ) );
+		.pipe( gulp.dest( paths.buildDir ) );
 });

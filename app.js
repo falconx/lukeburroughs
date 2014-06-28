@@ -1,5 +1,5 @@
 var express = require('express'),
-    path    = require('path'),
+	path    = require('path'),
 	app     = express(),
 	env     = process.env.NODE_ENV || 'development';
 
@@ -12,7 +12,7 @@ app.set('view engine', 'html');
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 
-// Export run to be called from Gulp task
+//exec('gulp');
 
 //module.exports = {
 	//run: function() {
