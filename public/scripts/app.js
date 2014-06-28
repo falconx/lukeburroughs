@@ -9,14 +9,84 @@ angular.module('lukeburroughs', [
 .constant('AppConfig', {
 	'homepage': {
 		'slides': [{
-			'src': 'dist/images/homepage/rewirebg.jpg',
-			'alt': 'Re-wire',
-			'class': 'overlay-rewire'
+			'src': 'dist/images/homepage/001.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
 		},
 		{
-			'src': 'dist/images/homepage/remixbg.jpg',
-			'alt': 'Re-mix',
-			'class': 'overlay-remix'
+			'src': 'dist/images/homepage/002.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/003.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/004.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/005.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/006.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/007.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/008.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/009.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/010.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/011.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/012.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/013.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/014.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/015.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
+		},
+		{
+			'src': 'dist/images/homepage/016.jpg',
+			'alt': 'Design&Build',
+			'class': 'overlay-homepage'
 		}]
 	},
 	'email_address': 'luke.burroughs@btinternet.com',
