@@ -14,10 +14,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Export run to be called from Gulp task
 
-module.exports = {
-	run: function() {
+//module.exports = {
+	//run: function() {
 		app.listen(app.get('port'), function() {
 			console.log('Express server listening on port ' + app.get('port'));
 		});
-	}
-};
+	//}
+//};
