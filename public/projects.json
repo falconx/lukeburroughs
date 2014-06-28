@@ -8,43 +8,58 @@
 			{
 				"image": "001.jpg",
 				"colour": "#fff",
-				"background": "#c4c5ca"
+				"background": "#c4c5cb"
 			},
 			{
 				"image": "002.jpg",
 				"colour": "#fff",
-				"background": "#c4c5ca"
+				"background": "#c4c5cb"
 			},
 			{
 				"image": "003.jpg",
 				"colour": "#fff",
-				"background": "#c3c4c9"
+				"background": "#c4c5cb"
 			},
 			{
 				"image": "004.jpg",
 				"colour": "#fff",
-				"background": "#c4c5ca"
+				"background": "#c4c5cb"
 			},
 			{
 				"image": "005.jpg",
-				"colour": "#c7cad0",
-				"background": "#fff"
+				"colour": "#fff",
+				"background": "#c4c5cb"
 			},
 			{
 				"image": "006.jpg",
-				"colour": "#c7cad0",
-				"background": "#fff"
+				"colour": "#fff",
+				"background": "#c4c5cb"
 			},
 			{
 				"image": "007.jpg",
 				"colour": "#c7cad0",
 				"background": "#fff"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#c7cad0",
+				"background": "#fff"
+			},
+			{
+				"image": "009.jpg",
+				"colour": "#c7cad0",
+				"background": "#fff"
+			},
+			{
+				"image": "010.jpg",
+				"colour": "#c7cad0",
+				"background": "#fbfcfe"
 			}
 		]
 	},
 	{
 		"id": "never_let_the_truth",
-		"name": "Never Let Truth",
+		"name": "Never Let The Truth",
 		"subtitle": "Spoil A Good Story",
 		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
 		"slides": [
@@ -174,7 +189,7 @@
 			{
 				"image": "004.jpg",
 				"colour": "#797784",
-				"background": "#dadadb"
+				"background": "#f2f2f2"
 			},
 			{
 				"image": "005.jpg",
@@ -185,6 +200,16 @@
 				"image": "006.jpg",
 				"colour": "#797784",
 				"background": "#dbdad9"
+			},
+			{
+				"image": "007.jpg",
+				"colour": "#fff",
+				"background": "#3a35aa"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#fff",
+				"background": "#ced7d3"
 			}
 		]
 	},
@@ -363,6 +388,74 @@
 		]
 	},
 	{
+		"id": "expose",
+		"name": "Exposé",
+		"subtitle": "The Size Issue",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f2f4f7"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f2f4f7"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f2f4f7"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f2f4f7"
+			},
+			{
+				"image": "005.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f2f4f7"
+			},
+			{
+				"image": "006.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f2f4f7"
+			},
+			{
+				"image": "008.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f3f3f9"
+			},
+			{
+				"image": "009.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f2f4f7"
+			},
+			{
+				"image": "010.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f2f4f7"
+			},
+			{
+				"image": "011.jpg",
+				"colour": "#b2b9c0",
+				"background": "#f0f3f8"
+			},
+			{
+				"image": "012.jpg",
+				"colour": "#b2b9c0",
+				"background": "#fcfafc"
+			},
+			{
+				"image": "013.jpg",
+				"colour": "#b2b9c0",
+				"background": "#fcfafc"
+			}
+		]
+	},
+	{
 		"id": "data_damage",
 		"name": "Data Damage",
 		"subtitle": "A Film Piracy Study",
@@ -467,6 +560,34 @@
 				"image": "020.jpg",
 				"colour": "#424250",
 				"background": "#000"
+			}
+		]
+	},
+	{
+		"id": "the_lookbook",
+		"name": "The Lookbook",
+		"subtitle": "Consuming Fashion",
+		"description": "Description for Project 1. Description for 1. for Project 1 adabd asjhdbsajhdbasd as das",
+		"slides": [
+			{
+				"image": "001.jpg",
+				"colour": "#fff",
+				"background": "#68cef2"
+			},
+			{
+				"image": "002.jpg",
+				"colour": "#fff",
+				"background": "#ffc3ed"
+			},
+			{
+				"image": "003.jpg",
+				"colour": "#b7cdd9",
+				"background": "#fdfd43"
+			},
+			{
+				"image": "004.jpg",
+				"colour": "#fff",
+				"background": "#c0b2a5"
 			}
 		]
 	},
@@ -638,31 +759,18 @@
 			{
 				"image": "002.jpg",
 				"colour": "#5e5e6b",
-				"background": "#13131d"
+				"background": "#181822"
 			},
 			{
 				"image": "003.jpg",
 				"colour": "#5e5e6b",
-				"background": "#10101a"
+				"background": "#171721"
 			},
 			{
 				"image": "004.jpg",
 				"colour": "#5e5e6b",
-				"background": "#10101a"
+				"background": "#17171f"
 			}
 		]
-	},
-	{
-		"id": "journeys",
-		"name": "Journeys",
-		"subtitle": "Journeys subtitle",
-		"description": "Description for Project 2",
-		"slides": [
-			{ "image": "001.jpg" },
-			{ "image": "002.jpg" },
-			{ "image": "003.jpg" }
-		],
-		"colour": "#222",
-		"background": "#FFF"
 	}
 ]
