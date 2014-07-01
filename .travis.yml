@@ -2,22 +2,25 @@ language: node_js
 node_js:
   - "0.10"
 end:
-  - NODE_ENV=development
+  - NODE_ENV=production
 deploy:
   strategy: git
   provider: heroku
   skip_cleanup: true
   app: lukeburroughs
   on:
-    repo: falconx/angularjs
+    repo: falconx/lukeburroughs
   api_key:
     secure: Bmu2VFud2kGghkJcF3nre8E7WiIVVjnKp/12+VwRcMQriswJOxlwJWG4gvP616QlzMRc3gczX0etFOzywnG91BO4Ufmlqu5GpbabKxm6lbmlNv7Qvf8jeHVRB1+THqA/fQRu+MBNDyK0HJTEmXA4SbLWng01mfgLavvCkISGGNY=
 script:
   - echo "Deploying..."
+  - npm install --production
+  - gulp
+  - forever node app.js
 after_success:
   - rm -rf .git
-  - rm -rf node_modules
-  - npm install --production
+  - rm -rf public/images
+  - rm -rf public/css
 notifications:
   email:
     recipients:
