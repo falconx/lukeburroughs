@@ -1,13 +1,8 @@
-language: node_js
-node_js:
-- '0.10'
-end:
-- NODE_ENV=production
 env:
   global:
     secure: "Wv3cisZaf0srHbc99TrncV1EHJb2xRFuqtLe3K5cs17VxsazlofecNvrS9HjKx2+HzbgyEWWLvRzZOne53sBAx4zdH+gtJHkleiBS0QcVUhBHF2p92ngAhi9mYz1ZGGjZPTIhe2kEPr/xW8q4J5uyVLeGq8nen2DO6C7D1FW+gY="
 after_success:
-- $SERVER
+- ssh $SERVER
 - $LOGIN
 - cd ~/angularjs
 - git pull
