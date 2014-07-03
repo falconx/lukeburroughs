@@ -1,11 +1,1 @@
-Setup:
-```
-npm install
-```
-
-Compress assets, css, scripts and run the Express server:
-```
-gulp
-```
-
-New projects can be added by modifying public/projects.json
+[![Build Status](https://drone.io/github.com/falconx/lukeburroughs/status.png)](https://drone.io/github.com/falconx/lukeburroughs/latest)
