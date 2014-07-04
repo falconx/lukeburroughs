@@ -3,42 +3,38 @@
 		<h1>The Build Process</h1>
 		<h2>Brief</h2>
 		<p>
-			To create a highly vsual site on all devices - rethinking the stacked nature of mobile content - to find a means of seamlessly integrating web, table and mobile experiences.
+			To create a highly visual site on all devices - rethinking the stacked nature of mobile content - to find a means of seamlessly integrating web, table and mobile experiences.
 		</p>
 		<h2>Approach</h2>
 		<p>
-			With such a simple set of requirements, we placed importance on having the site as lightweight and easily editable as possible.  Static site generators, a way of serving files without the need for a CMS or database, seemed to compliment the brief as a secure and performant solution.
+			With such a simple set of requirements, we placed importance on having the site as lightweight and easily editable as possible. Static site generators, a way of serving files without the need for a CMS or database, seemed to compliment the brief as a secure and performant solution.
 		</p>
 	</div>
 	<div class="column">
 		<h2>Technology</h2>
 		<p>
-			The intrinsically portable nature of static sites meant we also had a wide choice over where we wanted to host the site, allowing us to take advantage of the free hosting service Heroku.
+			Initially starting as Jekyll development, the site was rewritten as a SPA (Single Page Application) in the Google's AngularJS framework. Mostly, two factors lead to the decision to migrate platform; firstly, well, it's just newer so why not?
 		</p>
 		<p>
 			<img src="dist/images/logos.png" alt="Build logos" />
 		</p>
 		<p>
-			We decided to use the static site generator Jekyll partly because it was the first we came across, but mostly due to its level of popularity.
+			More importantly though, being completely JavaScript driven meant we could avoid Ruby complexities such as the Ruby asset pipeline for production optimisations.
 		</p>
 		<blockquote>
 			We need to make mobile a core part of the end product - not an add-on feature.
 		</blockquote>
 		<p>
-			Despite being written in Ruby, understanding the language is not required in order to develop a simple site. That said, sinking our teeth into the Jekyll plugin was necessary in order to add a Liquid template plugin (http://docs.shopify.com/themes/liquid-basics) for padding the project numbers, e.g. so 5 becomes ‘005’.
+			Already having a knowledge of JavaScript, said optimisations, including script uglification, minification, contatination and image compressing have been set up as Gulp tasks.
 		</p>
 	</div>
 	<div class="column">
 		<h2>Deployment</h2>
 		<p>
-			Of course our next question was, how can we make the process of adding new content, deploying a new Jekyll build and serving the updated content as seamless and streamlined as possible?
+			Drone.io is a CI (Continuous Integration) platform which listens for pushes against a Git branch before, in our case, deploying them to a DigitalOcean droplet endpoint.  This automation makes adding or modifying content simple --- upload a few project images, update a configuration file to reference them, write descriptions etc, commit the changes and Drone.io will take care of the rest!
 		</p>
 		<p>
-			Our answer to this was to have GitHub act as our CMS whilst a service called Travis listens for commits and automatically runs a deploy script to copy and serve the files on the third party hosting service; Heroku.
-		</p>
-		<p>
-			Using GitHub as a means of managing the content not only allows us to maintain revisions of the code which can be reverted back to, but also - acts as a simple environment with the only dependency being that the client has a web browser.
-			Whilst the site could just have been easily hosted on GitHub Pages, we wanted the flexibility of including additional Ruby middleware features such as script minification and asset compression.
+			Through the power of Node and Express, the optimised production files are served using Forver and an Upstart script ensuring that the site continues to serve even after disruptions or reboots on the host environment.
 		</p>
 		<p>
 			Throughout the build, much consideration was taken to ensure that the mobile experience felt a core part of the end-product and not an add-on. This meant taking time to experiment with web fonts, scalable backgrounds and vectored glyphs as icons to ensure a crisper look on high resolution screens and an equal experience across all platforms.
