@@ -3,7 +3,7 @@
 		<h1>The Build Process</h1>
 		<h2>Brief</h2>
 		<p>
-			To create a highly visual site on all devices - rethinking the stacked nature of mobile content - to find a means of seamlessly integrating web, table and mobile experiences.
+			To create a highly visual site on all devices — rethinking the stacked nature of mobile content — to find a means of seamlessly integrating web, tablet and mobile experiences.
 		</p>
 		<h2>Approach</h2>
 		<p>
@@ -22,7 +22,7 @@
 			More importantly though, being completely JavaScript driven meant we could avoid Ruby complexities such as the Ruby asset pipeline for production optimisations.
 		</p>
 		<blockquote>
-			We need to make mobile a core part of the end product - not an add-on feature.
+			We need to make mobile a core part of the end product — not an add-on feature.
 		</blockquote>
 		<p>
 			Already having a knowledge of JavaScript, said optimisations, including script uglification, minification, contatination and image compressing have been set up as Gulp tasks.
@@ -31,7 +31,7 @@
 	<div class="column">
 		<h2>Deployment</h2>
 		<p>
-			Drone.io is a CI (Continuous Integration) platform which listens for pushes against a Git branch before, in our case, deploying them to a DigitalOcean droplet endpoint.  This automation makes adding or modifying content simple --- upload a few project images, update a configuration file to reference them, write descriptions etc, commit the changes and Drone.io will take care of the rest!
+			Drone.io is a CI (Continuous Integration) platform which listens for pushes against a Git branch before, in our case, deploying them to a DigitalOcean droplet endpoint.  This automation makes adding or modifying content simple — upload a few project images, update a configuration file to reference them, write descriptions etc, commit the changes and Drone.io will take care of the rest!
 		</p>
 		<p>
 			Through the power of Node and Express, the optimised production files are served using Forver and an Upstart script ensuring that the site continues to serve even after disruptions or reboots on the host environment.
