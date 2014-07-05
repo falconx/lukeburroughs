@@ -3,7 +3,7 @@
 		"id": "damaged_file",
 		"name": "The Damaged File",
 		"subtitle": "We Are Pirates",
-		"description": "A small sculpture about the repercussions of film piracy. The file documents 100 cast and crew members, each inscribed with the data of 100 film Piraters, hand-cut into their faces.",
+		"description": "A physical representation of a digital film file, demonstrating the effects of illegal downloads.  The file is made up of photos of cast and crew members who have been corrupted by the downloads.  The corrupted data is represented by cut-outs on each page, increasing in severity as each and every download takes place.  The data shown in this project came from a survey asking 100 internet users whether they pirated films.  The result showed 66 confessed and were unaware of any consequences.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -61,7 +61,7 @@
 		"id": "never_let_the_truth",
 		"name": "Never Let The Truth",
 		"subtitle": "Spoil A Good Story",
-		"description": "An exhibition marking the media’s exaggeration of the events leading up to the London 2012 Olympic Games. Never Let The Truth Spoil A Good Story explores how news journalism can often cross over into the realm of fiction. The exhibition was shown at NUA, St Georges Building on 30/09/2012",
+		"description": "An exhibition marking the media’s exaggeration of the events leading up to the London 2012 Olympic Games. Never Let The Truth Spoil A Good Story explores how news journalism can often cross over into the realm of fiction. The exhibition was shown at NUA, St Georges Building, Norwich on 30/09/2012",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -169,7 +169,7 @@
 		"id": "fictional_newscapes",
 		"name": "Fictional Newscapes",
 		"subtitle": "Subliminal Chaos",
-		"description": "Fictional Newscapes is a series of prints recycled from newspaper headlines and imagery of the Daily Mail’s coverage of the 2012 Olympic games. They present scenarios that never came to be, but will always remain engrained in our minds.",
+		"description": "Fictional Newscapes is a series of fictional photo montages made from newspaper headlines and photographic imagery taken from the Daily Mail’s coverage of the 2012 Olympic Games.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -217,7 +217,7 @@
 		"id": "world_that_never_was",
 		"name": "World That Never Was",
 		"subtitle": "Illustration Series",
-		"description": "A personal series of prints that portray a frustration towards present day culture and how easily we find ourselves manipulated by the mass media. The prints are an exercise to regain some control over the situation. ",
+		"description": "A personal series of illustrations that portray my frustration towards present day culture, and how easily we all find ourselves manipulated by the media. The prints are an exercise to regain some control over the situation.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -280,7 +280,7 @@
 		"id": "from_a_distance",
 		"name": "From A Distance",
 		"subtitle": "David Stephenson",
-		"description": "Commissioned by Author and poet of the Salopian Poetry Society in Shropshire to art-direct his book. I designed the cover and interiors; 88 pages, with illustrations and typographic flourishes into a hardbound edition with dust jacket and foil block-lettering. The book was published by the author with proceeds raising £2000 for Cancer Research.",
+		"description": "Commissioned by the author to art-direct his book of poetry. I designed the cover and interior; 88 pages, with illustrations and typographic flourishes, into a hardback edition with dust jacket and foil block-lettering. The book was published by the Salopian Poetry Society of Shropshire, on behalf of the author, with proceeds raising £2000 for Cancer Research UK.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -343,7 +343,7 @@
 		"id": "directions",
 		"name": "Directions",
 		"subtitle": "Life & Colour",
-		"description": "A personal series of posters expressing emotional moments in my life during 2013. Simple compositions exploring shape and colour. The prints are initialled with a small title and date.",
+		"description": "A personal series of posters expressing emotional moments in my life during 2013. Simple compositions which gave me the opportunity to explore shape and colour. They show A woman trying to escape, two friends who go their separate ways and a man and child who seek a new home.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -391,7 +391,7 @@
 		"id": "expose",
 		"name": "Exposé",
 		"subtitle": "The Size Issue",
-		"description": "Documenting the story of a young girl who wanted nothing more than to be like the images she saw in her favourite fashion magazines and how her obsession to attain them inevitably broke her.",
+		"description": "Documenting the story of a young girl whose ambition was to become a fashion magazine model, and how her obsession to attain her dream inevitably broke her. The aesthetic gives the illusion of traditional fashion editorial, but is actually quite the opposite.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -459,7 +459,7 @@
 		"id": "data_damage",
 		"name": "Data Damage",
 		"subtitle": "A Film Piracy Study",
-		"description": "A study to understand the reasoning’s behind film piraters. Results were inconclusive.",
+		"description": "A study to understand how film piraters rationalise their actions. Results were inconclusive.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -567,7 +567,7 @@
 		"id": "the_lookbook",
 		"name": "The Lookbook",
 		"subtitle": "Consuming Fashion",
-		"description": "Is all fashion photography healthy to those consuming it? These are prints made from recycling photographs and through collage and cut and paste techniques, an attempt it made to reveal their issues.",
+		"description": "A series of images highlighting the negative values of fashion and it’s photographic representation.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -595,7 +595,7 @@
 		"id": "arrivals",
 		"name": "Arrivals Magazine",
 		"subtitle": "Issue 1 @Tokyo",
-		"description": "A collection of stories and photographs that document peoples first time encounters with the city of Tokyo.",
+		"description": "First impressions of Tokyo; an alternative travel magazine.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -648,7 +648,7 @@
 		"id": "we_know",
 		"name": "We Know",
 		"subtitle": "Surveillance Poster",
-		"description": "A poster communicating the problems of CCTV technology in today’s ever-connected culture.",
+		"description": "A poster communicating the problems of CCTV technology in today’s culture of media networking.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -671,7 +671,7 @@
 		"id": "if_on_a_winters_night",
 		"name": "Italo Calvino",
 		"subtitle": "If On A Winter's Night",
-		"description": "The book that knew it was being read. I designed an artist book for Italo Calvino’s famous novel. It was designed with a dust jacket, cover, interiors and foil block lettering.",
+		"description":"Italo Calvino’s famous novel is a postmodern story about a book that is aware it is being read; it speaks directly to the reader.",
 		"slides": [
 			{
 				"image": "001.jpg",
@@ -749,7 +749,7 @@
 		"id": "roles_we_play",
 		"name": "Roles We Play",
 		"subtitle": "Identity Campaign",
-		"description": "Who are we really? Unlike face to face encounters, online interaction provides us with the opportunity to be anonymous, invisible and multiple.",
+		"description": "Who are you? Unlike face to face encounters, online interaction provides us all with the opportunity to project multiple personas.",
 		"slides": [
 			{
 				"image": "001.jpg",
