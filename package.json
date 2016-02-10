@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "private": true,
   "description": "Luke Burroughs Portfolio",
-  "main": "index.js",
+  "script": "node app.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/falconx/lukeburroughs.git"
