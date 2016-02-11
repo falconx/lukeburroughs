@@ -1,13 +1,13 @@
-var gulp     = require('gulp'),
-	gutil    = require('gulp-util'),
-	clean    = require('gulp-clean'),
-	changed  = require('gulp-changed'),
-	uglify   = require('gulp-uglify'),
-	concat   = require('gulp-concat'),
-	imagemin = require('gulp-imagemin'),
-	cssmin   = require('gulp-cssmin'),
-	jshint   = require('gulp-jshint'),
-	summary  = require('jshint-summary');
+var gulp     = require('gulp');
+var gutil    = require('gulp-util');
+var clean    = require('gulp-clean');
+var changed  = require('gulp-changed');
+var uglify   = require('gulp-uglify');
+var concat   = require('gulp-concat');
+var imagemin = require('gulp-imagemin');
+var cssmin   = require('gulp-cssmin');
+var jshint   = require('gulp-jshint');
+var summary  = require('jshint-summary');
 
 var paths = {
 	buildDir: 'public/dist',
@@ -37,18 +37,13 @@ gulp.task('compress', ['scripts', 'assets', 'css'], function() {
 	gutil.log( gutil.colors.green('Files compressed') );
 });
 
-/**
- * Clean out build directory
- */
+// Clean out build directory
 
 gulp.task('clean', function() {  
-	return gulp.src( paths.buildDir, { read: false })
-		.pipe( clean() );
+	return gulp.src( paths.buildDir, { read: false }).pipe( clean() );
 });
 
-/**
- * Watch for changes
- */
+// Watch for changes
 
 gulp.task('watch', function() {
 	gutil.log( 'gulp:watch task running...' );
@@ -58,9 +53,7 @@ gulp.task('watch', function() {
 	gulp.watch( paths.stylesheets, ['css'] );
 });
 
-/**
- * Lint scripts
- */
+// Lint scripts
 
 gulp.task('lint', function() {
 	gulp.src( 'scripts/app.js' )
@@ -72,9 +65,7 @@ gulp.task('lint', function() {
 		}));
 });
 
-/**
- * Minify scripts
- */
+// Minify scripts
 
 gulp.task('scripts', ['lint'], function() {
 	gulp.src( paths.scripts )
@@ -83,10 +74,8 @@ gulp.task('scripts', ['lint'], function() {
 		.pipe( gulp.dest( paths.buildDir ) );
 });
 
-/**
- * Minify image assets and maintain file structure by setting base
- * TODO: PNG's
- */
+// Minify image assets and maintain file structure by setting base
+// Todo: PNG's
 
 gulp.task('assets', function() {
 	return gulp.src( paths.assets, { base: 'public' } )
@@ -101,9 +90,7 @@ gulp.task('assets', function() {
 		.pipe( gulp.dest( paths.buildDir ) );
 });
 
-/**
- * Minify stylesheets
- */
+// Minify stylesheets
 
 gulp.task('css', function() {
 	gulp.src( paths.stylesheets )

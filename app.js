@@ -1,23 +1,17 @@
-var express = require('express'),
-	path    = require('path'),
-	app     = express(),
-	env     = process.env.NODE_ENV || 'development';
+var express = require('express');
+var path = require('path');
+var env = process.env.NODE_ENV || 'development';
+var ejs = require('ejs');
 
-// Server configuration
+var app = express();
 
-app.engine('html', require('ejs').renderFile);
+app.engine('html', ejs.renderFile);
 
 app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'html');
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 
-//exec('gulp');
-
-//module.exports = {
-	//run: function() {
-		app.listen(app.get('port'), function() {
-			console.log('Express server listening on port ' + app.get('port'));
-		});
-	//}
-//};
+app.listen(app.get('port'), function() {
+	console.log('Server listening on port ' + app.get('port'));
+});

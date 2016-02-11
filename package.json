@@ -1,5 +1,6 @@
 {
   "name": "lukeburroughs",
+  "private": true,
   "scripts": {
     "start": "node app.js"
   },
