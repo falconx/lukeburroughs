@@ -1,16 +1,7 @@
 {
   "name": "lukeburroughs",
-  "version": "0.0.2",
-  "private": true,
-  "description": "Luke Burroughs Portfolio",
-  "script": "node app.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/falconx/lukeburroughs.git"
-  },
-  "author": "Matt Layton",
-  "bugs": {
-    "url": "https://github.com/falconx/lukeburroughs/issues"
+  "scripts": {
+    "start": "node app.js"
   },
   "devDependencies": {
     "error-handler": "~1.0.0",
@@ -33,7 +24,7 @@
     "jshint-summary": "~0.4.0"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.3.x"
+    "node": "~0.10.x",
+    "npm": "~1.3.x"
   }
 }
