@@ -3,7 +3,7 @@ deploy:
   app: lukeburroughs
   provider: heroku
   api_key:
-    secure: "Wv3cisZaf0srHbc99TrncV1EHJb2xRFuqtLe3K5cs17VxsazlofecNvrS9HjKx2+HzbgyEWWLvRzZOne53sBAx4zdH+gtJHkleiBS0QcVUhBHF2p92ngAhi9mYz1ZGGjZPTIhe2kEPr/xW8q4J5uyVLeGq8nen2DO6C7D1FW+gY="
+    secure: "UZY3HCW1Az3iqZAtJUBqRr4QOs9QFewuwWhU8AIbkfHw60GSzEnqd0rXHYaqnf77VQU6jHyXJwlWGv90nKSAA53hFGLEGdda8zZ19l7T/iPOF9W5HwayFCln5HN1ZVxTYUJ1f0G5MVXuJPjOna9er3clIdzM5V3aT3qDgSwkyFo="
   on: master
 after_success:
   - gulp
