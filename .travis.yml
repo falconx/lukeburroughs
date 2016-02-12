@@ -5,6 +5,7 @@ deploy:
   api_key:
     secure: "UZY3HCW1Az3iqZAtJUBqRr4QOs9QFewuwWhU8AIbkfHw60GSzEnqd0rXHYaqnf77VQU6jHyXJwlWGv90nKSAA53hFGLEGdda8zZ19l7T/iPOF9W5HwayFCln5HN1ZVxTYUJ1f0G5MVXuJPjOna9er3clIdzM5V3aT3qDgSwkyFo="
   on: master
+install: npm install -d
 after_success:
   - gulp
   - rm -rf public/images
